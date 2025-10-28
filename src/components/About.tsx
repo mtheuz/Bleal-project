@@ -2,7 +2,6 @@ import { useRef, useLayoutEffect } from "react";
 import { Award, Heart, Zap, Target, Eye, Gem } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import logoImage from "@/assets/img/logoazul.png";
 import { FaWhatsapp } from "react-icons/fa";
 import heroImage from "@/assets/img/rgb-stage.png";
 import Carousel from "./ui/Carrousiel";

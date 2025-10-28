@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import aboutIMG1 from "../../assets/img/about/i1.jpg"
 import aboutIMG2 from "../../assets/img/about/i2.jpg"
 import aboutIMG3 from "../../assets/img/about/i3.jpg"
@@ -31,7 +31,7 @@ export default function Carousel() {
       nextSlide();
     }, 5000);
     return () => clearInterval(timer);
-  }, []);
+  });
 
   return (
     <div className="relative w-full overflow-hidden rounded-lg">

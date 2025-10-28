@@ -1,4 +1,4 @@
-import { Cpu, Users2, Trophy, Shield, Radio, Layers2, Calendar } from "lucide-react";
+import { Cpu, Users2, Trophy, Shield, Layers2, Calendar } from "lucide-react";
 
 const differentials = [
   {

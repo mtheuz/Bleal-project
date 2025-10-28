@@ -20,9 +20,9 @@ import casamento2IMG from "@/assets/img/comemorativo/casamento-2.jpg";
 
 type GL = Renderer["gl"];
 
-function debounce<T extends (...args: any[]) => void>(func: T, wait: number) {
+function debounce<T extends (...args: unknown[]) => void>(func: T, wait: number) {
   let timeout: number;
-  return function (this: any, ...args: Parameters<T>) {
+  return function (this: unknown, ...args: Parameters<T>) {
     window.clearTimeout(timeout);
     timeout = window.setTimeout(() => func.apply(this, args), wait);
   };
@@ -32,50 +32,6 @@ function lerp(p1: number, p2: number, t: number): number {
   return p1 + (p2 - p1) * t;
 }
 
-function autoBind(instance: any): void {
-  const proto = Object.getPrototypeOf(instance);
-  Object.getOwnPropertyNames(proto).forEach((key) => {
-    if (key !== "constructor" && typeof instance[key] === "function") {
-      instance[key] = instance[key].bind(instance);
-    }
-  });
-}
-
-function getFontSize(font: string): number {
-  const match = font.match(/(\d+)px/);
-  return match ? parseInt(match[1], 10) : 30;
-}
-
-function createTextTexture(
-  gl: GL,
-  text: string,
-  font: string = "bold 30px monospace",
-  color: string = "black"
-): { texture: Texture; width: number; height: number } {
-  const canvas = document.createElement("canvas");
-  const context = canvas.getContext("2d");
-  if (!context) throw new Error("Could not get 2d context");
-
-  context.font = font;
-  const metrics = context.measureText(text);
-  const textWidth = Math.ceil(metrics.width);
-  const fontSize = getFontSize(font);
-  const textHeight = Math.ceil(fontSize * 1.2);
-
-  canvas.width = textWidth + 20;
-  canvas.height = textHeight + 20;
-
-  context.font = font;
-  context.fillStyle = color;
-  context.textBaseline = "middle";
-  context.textAlign = "center";
-  context.clearRect(0, 0, canvas.width, canvas.height);
-  context.fillText(text, canvas.width / 2, canvas.height / 2);
-
-  const texture = new Texture(gl, { generateMipmaps: false });
-  texture.image = canvas;
-  return { texture, width: canvas.width, height: canvas.height };
-}
 
 interface ScreenSize {
   width: number;
@@ -114,7 +70,7 @@ class Media {
   renderer: Renderer;
   scene: Transform;
   screen: ScreenSize;
-  text: string;
+  text: string | undefined;
   viewport: Viewport;
   bend: number;
   textColor: string;
@@ -140,7 +96,6 @@ class Media {
     renderer,
     scene,
     screen,
-    text,
     viewport,
     bend,
     textColor,
@@ -349,7 +304,7 @@ class App {
     last: number;
     position?: number;
   };
-  onCheckDebounce: (...args: any[]) => void;
+  onCheckDebounce: (...args: unknown[]) => void;
   renderer!: Renderer;
   gl!: GL;
   camera!: Camera;
@@ -507,8 +462,10 @@ class App {
     const wheelEvent = e as WheelEvent;
     const delta =
       wheelEvent.deltaY ||
-      (wheelEvent as any).wheelDelta ||
-      (wheelEvent as any).detail;
+      
+      (wheelEvent as WheelEvent & { wheelDelta?: number }).wheelDelta ||
+
+      (wheelEvent as WheelEvent & { detail?: number }).detail;
     this.scroll.target +=
       (delta > 0 ? this.scrollSpeed : -this.scrollSpeed) * 0.2;
     this.onCheckDebounce();

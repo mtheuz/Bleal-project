@@ -108,13 +108,15 @@ const Portfolio = () => {
             key={i}
             src={logoImage}
             alt=""
-            ref={(el) => el && (logosRef.current[i] = el)}
+            ref={(el) => {
+              if (el) logosRef.current[i] = el;
+            }}
             className="absolute w-48 sm:w-72 opacity-20 blur-xs"
             style={{
               top: [80, 240, 400, 320, 560][i],
-              left: [160, null, -80, null, null][i],
-              right: [null, -40, null, 900, 64][i],
-              bottom: [null, null, -100, null, 40][i],
+              left: [160, undefined, -80, undefined, undefined][i],
+              right: [undefined, -40, undefined, 900, 64][i],
+              bottom: [undefined, undefined, -100, undefined, 40][i],
             }}
           />
         ))}

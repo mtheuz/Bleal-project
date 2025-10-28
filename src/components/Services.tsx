@@ -110,7 +110,7 @@ const Services = () => {
         );
       });
 
-      cardsRef.current.forEach((card, i) => {
+      cardsRef.current.forEach((card) => {
         gsap.fromTo(
           card,
           { opacity: 0, y: 100, scale: 0.95 },

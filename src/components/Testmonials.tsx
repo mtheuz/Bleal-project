@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useLayoutEffect, FC } from "react";
+import { useState, useEffect, useRef, useLayoutEffect, type FC } from "react";
 import { Card, CardContent } from "../components/ui/Card";
 import { Star, Quote, ChevronLeft, ChevronRight } from "lucide-react";
 import logoImage from "@/assets/img/logovermelha.png";
@@ -192,7 +192,7 @@ const Testimonials: FC = () => {
       key={i}
       src={logoImage}
       alt=""
-      ref={(el) => (logosRef.current[i] = el)}
+      ref={(el) => {logosRef.current[i] = el;}}
       className="
         absolute 
         w-24 sm:w-36 md:w-48 lg:w-60 
@@ -309,7 +309,7 @@ const Testimonials: FC = () => {
             .map((testimonial, index) => (
               <Card
                 key={testimonial.id}
-                ref={(el) => (smallCardsRef.current[index] = el)}
+                ref={(el) => { smallCardsRef.current[index] = el; }}
                 className="border-2 border-white/50 hover:border-yellow-200 transition-all duration-300 cursor-pointer backdrop-blur-md"
                 onClick={() =>
                   setCurrentIndex(
