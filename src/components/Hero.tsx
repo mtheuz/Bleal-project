@@ -55,7 +55,7 @@ const Hero = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative  md:min-h-screen flex items-center justify-center overflow-hidden bg-stage spotlight w-full"
+      className="relative  md:min-h-screen flex items-center justify-center overflow-hidden  w-full"
     >
        {/* Vídeo de fundo inclinado */}
       <div className="absolute inset-0 overflow-hidden z-0 " >
@@ -64,6 +64,7 @@ const Hero = () => {
             src="\logo3d.mp4"
             autoPlay
             loop
+            preload="auto"
             muted
             playsInline
             className="w-full h-full object-cover opacity-100"

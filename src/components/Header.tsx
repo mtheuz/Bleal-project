@@ -108,8 +108,11 @@ const Header = () => {
 
 /* BOTÃO DE ORÇAMENTO (DESKTOP) */
 const ButtonSolicitar = ({ onClick }: { onClick: () => void }) => (
-  <button
+  <a
     onClick={onClick}
+    href="https://wa.me/5575999535995"
+    target="_blank"
+    rel="noopener   noreferrer"
     className="group relative px-10 py-4 ml-4 font-bold text-white text-sm uppercase tracking-wide bg-transparent cursor-pointer overflow-hidden transition-all duration-500 ease-in-out"
   >
     <span className="relative z-10 inline-block bg-clip-text text-transparent bg-gradient-to-r from-white via-white/50 to-white bg-[length:200%_auto] animate-shine-text font-black">
@@ -124,7 +127,7 @@ const ButtonSolicitar = ({ onClick }: { onClick: () => void }) => (
     <span className="absolute top-10 right-0 w-1 h-1 bg-blue-500 rounded-full" />
     <span className="absolute bottom-0 left-0 h-1 w-10 group-hover:w-28 bg-white rounded-full transition-all duration-500 ease-in-out" />
     <span className="absolute bottom-0 left-0 w-1 h-10 bg-white rounded-full" />
-  </button>
+  </a>
 );
 
 export default Header;

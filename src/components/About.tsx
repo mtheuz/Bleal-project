@@ -187,15 +187,15 @@ const About = () => {
           {/* Texto */}
           <div
             ref={textsRef}
-            className="space-x-6 flex justify-between max-w-6xl items-center mx-auto sm:flex-row flex-col"
+            className="sm:space-x-6 flex justify-between max-w-6xl items-center mx-auto sm:flex-row flex-col"
           >
             <div className="max-w-lg space-y-6  ">
-              <h3 className="text-lg sm:text-2xl font-light text-foreground uppercase oswald ">
+              <h3 className="text-lg sm:text-2xl font-light  uppercase oswald ">
                 Referência em soluções técnicas para eventos
               </h3>
               <p className="text-sm sm:text-[15px] leading-relaxed text-white/70">
                 A <span className="text-white">BLeal Produções</span> é
-                referência em soluções técnicas para eventos. Com sede em Feira
+                referência em soluções técnicas para eventos. Com cede em Feira
                 de Santana e atuação em todo o estado, entregamos estrutura,
                 iluminação e impacto visual com precisão, criatividade e
                 responsabilidade.
@@ -224,7 +224,7 @@ const About = () => {
                 <Target size={20} className="relative z-10" />
                 <h4>Nossa Missão</h4>
               </div>
-              <p className="text-white/70 text-[13px]">
+              <p className="text-white/70 text-[12px]">
                 Transformar cada evento em uma experiência audiovisual
                 inesquecível, superando expectativas e elevando padrões de
                 qualidade.
@@ -234,7 +234,7 @@ const About = () => {
               ref={addCardRef}
               className="space-y-3 text-green-500 border-2 border-white/20 p-5 rounded-xl backdrop-blur-sm sm:w-1/2"
             >
-              <div className="flex gap-2 text-lg font-semibold oswald uppercase items-center">
+              <div className="flex gap-2 text-md font-semibold oswald uppercase items-center">
                 <Eye size={20} className="relative z-10" />
                 <h4>Nossa Visão</h4>
               </div>
