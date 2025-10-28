@@ -65,7 +65,7 @@ const Differentials = () => {
             {differentials.map((differential, index) => (
               <div
                 key={index}
-                className="flex gap-4 sm:gap-6 p-3 sm:p-4 rounded-xl items-center bg-gray-800/30 border border-white/40 hover:border-zinc-300 transition-all duration-300 hover:scale-[1.03] hover:translate-x-4 group animate-slide-up"
+                className="flex gap-4 sm:gap-6 p-4 h-26 sm:p-4 rounded-xl items-center bg-gray-800/30 border border-white/40 hover:border-zinc-300 transition-all duration-300 hover:scale-[1.03] sm:hover:translate-x-4 group animate-slide-up"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="flex-shrink-0 w-10 h-10 sm:w-14 sm:h-14 rounded-lg bg-black flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
@@ -82,10 +82,10 @@ const Differentials = () => {
           </div>
 
           {/* Right column - visual element */}
-          <div className="relative h-72 sm:h-[600px] py-5 sm:py-0 border-2 border-white/40 rounded-2xl overflow-hidden animate-fade-in mt-8 md:mt-0">
+          <div className="relative h-72 sm:h-[600px] py-56 sm:py-0 border-2 border-white/40 rounded-2xl overflow-hidden animate-fade-in mt-8 md:mt-0">
 
-            <div className="absolute inset-0 flex items-center justify-center bg-zinc-900/50">
-              <div className="text-center space-y-6 sm:space-y-2 p-6 sm:p-8">
+            <div className="absolute inset-0 flex items-center justify-center bg-zinc-900/50 ">
+              <div className="text-center space-y-6 sm:space-y-2 p-10 sm:p-8">
                 <div className="oswald text-5xl sm:text-8xl font-medium bg-gradient-to-br text-white ">
                   +10.000
                 </div>
@@ -104,10 +104,10 @@ const Differentials = () => {
         </div>
                 <div className="mt-10">
                   <div className="text-center border-2 border-white/50 bg-black rounded-2xl p-2">
-                    <div className="text-3xl sm:text-4xl font-bold text-white mb-1 oswald">
+                    <div className="text-2xl sm:text-4xl font-bold text-white mb-1 oswald">
                       +12
                     </div>
-                    <p className="text-xs  text-gray-400 uppercase ">Anos de Experiência</p>
+                    <p className="text-[10px] smtext-xs  text-gray-400 uppercase ">Anos de Experiência</p>
                   </div>
                 </div>
               </div>

@@ -94,10 +94,10 @@ const Footer = () => {
               ))}
             </ul>
 
-            <div className="flex mt-6 gap-2 items-center hover:scale-105 transition-transform cursor-pointer hover:text-gold">
+            <a href="https://www.instagram.com/blealproducoes/" target="_blank" rel="noopener noreferrer" className="flex justify-center sm:justify-start mt-6 gap-2 items-center hover:scale-105 transition-transform cursor-pointer hover:text-gold">
               <BsInstagram size={20} className="transition-colors" />
               <h4 className="text-lg font-bold text-gold">Siga no Instagram</h4>
-            </div>
+            </a>
           </div>
         </div>
 

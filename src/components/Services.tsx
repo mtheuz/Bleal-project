@@ -224,7 +224,7 @@ const Services = () => {
           <h1 className="text-xl sm:text-2xl oswald mb-2 uppercase">
             Casamentos e aniversários
           </h1>
-          <p className="text-sm sm:text-xs text-white/70 max-w-2xl mx-auto  font-extralight uppercase">
+          <p className="text-xs text-white/70 max-w-2xl mx-auto  font-extralight uppercase">
             Transformamos sonhos em cenários reais, com iluminação cênica, som
             de alta fidelidade e estruturas sob medida para momentos que marcam
             para sempre.

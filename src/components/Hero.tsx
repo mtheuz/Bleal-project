@@ -86,7 +86,7 @@ const Hero = () => {
 
           <div ref={descriptionRef} className=" text-center">
             <h3 className="text-2xl md:text-4xl lg:text-4xl  leading-tight">
-              <span className="text-zinc-200 text-3xl md:text-5xl font-extralight leading-none oswald uppercase border-b-[0.5px] border-white/15 border-red pb-2 ">
+              <span className="text-zinc-200 text-3xl md:text-5xl font-extralight leading-none oswald uppercase border-0 sm:border-b-[0.5px] border-white/15 border-red pb-2 ">
                 Levamos seu evento ao próximo nível
               </span>
             </h3>
