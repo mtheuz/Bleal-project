@@ -78,7 +78,7 @@ const Index = () => {
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
 
-      <main className="text-white">
+      <main className="text-white overflow-x-hidden">
         <Header />
         <Hero />
         <About />

@@ -61,7 +61,7 @@ const Hero = () => {
       <div className="absolute inset-0 overflow-hidden z-0 " >
         <div className="absolute inset-0 -rotate-12 scale-145">
           <video
-            src="src\assets\logo3d.mp4"
+            src="\logo3d.mp4"
             autoPlay
             loop
             muted
