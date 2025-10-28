@@ -1,0 +1,228 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+@import "tailwindcss";
+
+/* ========================================
+   B Leal Produções Design System
+   Cores RGB profissionais para iluminação de palco
+   ======================================== */
+
+@layer base {
+  :root {
+    /* RGB Stage Lighting Colors */
+    --red: 0 85% 60%;
+    --red-light: 0 85% 75%;
+    --red-dark: 0 85% 45%;
+    --red-glow: 0 85% 50%;
+
+    --green: 120 60% 45%;
+    --green-light: 120 60% 60%;
+    --green-dark: 120 60% 30%;
+    --green-glow: 120 60% 50%;
+
+    --blue: 240 90% 60%;
+    --blue-light: 240 90% 75%;
+    --blue-dark: 240 90% 45%;
+    --blue-glow: 240 90% 60%;
+
+    --black: 0 0% 3%;
+    --black-light: 0 0% 8%;
+
+    /* Gradients */
+    --gradient-rgb: linear-gradient(
+      45deg,
+      hsl(var(--red)) 0%,
+      hsl(var(--green)) 33%,
+      hsl(var(--blue)) 66%,
+      hsl(var(--red)) 100%
+    );
+
+    --gradient-stage: linear-gradient(
+      135deg,
+      hsl(var(--black)) 0%,
+      hsl(var(--red-dark)) 25%,
+      hsl(var(--green-dark)) 50%,
+      hsl(var(--blue-dark)) 75%,
+      hsl(var(--black)) 100%
+    );
+
+    --gradient-spotlight: radial-gradient(
+      circle,
+      hsl(var(--white)) 0%,
+      hsl(var(--red-glow)) 40%,
+      hsl(var(--black)) 100%
+    );
+  }
+
+  /* Reset básico */
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Be Vietnam Pro', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* ===============================
+     Efeitos de Fundo e Iluminação
+     =============================== */
+  .oswald {
+    font-family: oswald, system-ui, -apple-system, sans-serif;
+  }
+
+  .bg-stage {
+    background: var(--gradient-stage);
+    background-size: 400% 400%;
+    animation: stageShift 12s ease infinite;
+  }
+
+  /* 🎯 Spotlight aprimorado e mais evidente */
+  .spotlight::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+      circle at 50% 50%,
+      hsl(var(--white)/0.7) 0%,
+      hsl(var(--red-glow)/1) 25%,
+      hsl(var(--black)/0.95) 80%
+    );
+    mix-blend-mode: screen;
+    filter: blur(80px) brightness(1.8) saturate(1.5);
+    opacity: 0.9;
+    animation: spotlightSweep 4s ease-in-out infinite alternate;
+    pointer-events: none;
+    transition: opacity 0.5s ease, filter 0.5s ease;
+  }
+
+  /* Luz RGB pulsante */
+  .pulse-rgb {
+    animation: pulseRGB 3s ease-in-out infinite;
+  }
+
+  /* Grade RGB suave no palco */
+  .stage-grid {
+    background-image:
+      linear-gradient(hsl(var(--red)/0.1) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--green)/0.1) 1px, transparent 1px),
+      linear-gradient(hsl(var(--blue)/0.05) 1px, transparent 1px);
+    background-size: 50px 50px, 50px 50px, 25px 25px;
+  }
+
+  .section-padding {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  /* ✨ Shine Effect */
+  .shine {
+    background-image: linear-gradient(
+      120deg,
+      #e5e5e5 0%,
+      #cfcfcf 20%,
+      #f8f8f8 40%,
+      #bfbfbf 60%,
+      #f8f8f8 80%,
+      #e5e5e5 100%
+    );
+    background-size: 200% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: shine 5s linear infinite;
+  }
+}
+
+/* ========================================
+   Keyframes e Animações
+   ======================================== */
+
+@keyframes rgbShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  33% {
+    background-position: 33% 0%;
+  }
+  66% {
+    background-position: 66% 100%;
+  }
+}
+
+@keyframes stageShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 25% 25%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  75% {
+    background-position: 75% 75%;
+  }
+}
+
+/* 💡 Spotlight mais perceptível e com contraste alto */
+@keyframes spotlightSweep {
+  0% {
+    transform: rotate(0deg) translate(-30%, -30%) scale(1.1);
+  }
+  25% {
+    transform: rotate(90deg) translate(20%, -10%) scale(1.15);
+  }
+  50% {
+    transform: rotate(180deg) translate(40%, 20%) scale(1.25);
+  }
+  75% {
+    transform: rotate(270deg) translate(-10%, 40%) scale(1.1);
+  }
+  100% {
+    transform: rotate(360deg) translate(-30%, -30%) scale(1.2);
+  }
+}
+
+/* Pulsação RGB */
+@keyframes pulseRGB {
+  0% {
+    box-shadow: 0 0 20px hsl(var(--red)/0.4);
+  }
+  33% {
+    box-shadow: 0 0 30px hsl(var(--green)/0.4);
+  }
+  66% {
+    box-shadow: 0 0 25px hsl(var(--blue)/0.4);
+  }
+  100% {
+    box-shadow:
+      0 0 35px hsl(var(--red)/0.4),
+      0 0 40px hsl(var(--green)/0.2),
+      0 0 45px hsl(var(--blue)/0.2);
+  }
+}
+
+/* Shine no texto */
+@keyframes shine-text {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
+.animate-shine-text {
+  animation: shine-text 2.5s linear infinite;
+}
