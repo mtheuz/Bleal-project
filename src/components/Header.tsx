@@ -12,12 +12,8 @@ const NAV_ITEMS = [
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [showHeader, setShowHeader] = useState(false); // Para efeito de slide ao carregar
 
-  useEffect(() => {
-    // Slide-down ao montar
-    setShowHeader(true);
-
+  useEffect(() => {  
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
