@@ -1,4 +1,4 @@
-import { useRef, useLayoutEffect, useState } from "react";
+import { useRef, useLayoutEffect } from "react";
 import { Heart } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -11,7 +11,7 @@ import { LazyImage } from "./LazyImage";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// 🧩 Componente de imagem otimizada
+
 
 
 const services = [
