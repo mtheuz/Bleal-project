@@ -14,7 +14,7 @@ export const LazyImage = ({ src, srcAvif, alt, className }: LazyImageProps) => {
     <div className="relative w-full h-full overflow-hidden bg-gray-900/50">
       {/* Placeholder com shimmer moderno */}
       {!loaded && (
-        <div className="absolute inset-0 overflow-hidden bg-slate-800/60">
+        <div className="absolute inset-0 overflow-hidden bg-gray-800/60">
           <div className="absolute inset-0 animate-shimmer bg-gradient-to-r from-gray-800/60 via-gray-700/40 to-gray-800/60 blur-sm" />
         </div>
       )}

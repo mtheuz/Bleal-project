@@ -2,10 +2,14 @@ import { useRef, useLayoutEffect } from "react";
 import { Heart } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import corporativoImage from "@/assets/img/servicesIMG/coporativo.jpg";
+import corporativoImage from "@/assets/img/servicesIMG/corporativo.jpg";
 import comemorativoImage from "@/assets/img/servicesIMG/comemorativo.jpg";
 import audiovisualImage from "@/assets/img/servicesIMG/audiovisual.jpg";
 import publicosImage from "@/assets/img/servicesIMG/palco.jpg";
+import corporativoImageA from "@/assets/img/servicesIMG/corporativo.avif";
+import comemorativoImageA from "@/assets/img/servicesIMG/comemorativo.avif";
+import audiovisualImageA from "@/assets/img/servicesIMG/audiovisual.avif";
+import publicosImageA from "@/assets/img/servicesIMG/palco.avif";
 import CircularGallery from "../utils/circularGallery";
 import { LazyImage } from "./LazyImage";
 
@@ -21,6 +25,7 @@ const services = [
       "De festas tradicionais a celebrações municipais, garantimos segurança, fluidez e excelência em grandes montagens com foco em experiência coletiva e visibilidade.",
     icon: Heart,
     image: publicosImage,
+    imageAvif: publicosImageA,
   },
   {
     title: "Eventos Corporativos",
@@ -28,6 +33,7 @@ const services = [
       "Atendemos congressos, ativações de marca, convenções e lançamentos, com soluções elegantes e precisas para transmitir credibilidade e sofisticação.",
     icon: Heart,
     image: corporativoImage,
+    imageAvif: corporativoImageA,
   },
   {
     title: "Eventos Comemorativos",
@@ -35,6 +41,7 @@ const services = [
       "De aniversários a casamentos, entregamos estrutura completa, iluminação e sonorização de alto padrão para transformar cada celebração em uma experiência única, marcante e cheia de emoção.",
     icon: Heart,
     image: comemorativoImage,
+    imageAvif: comemorativoImageA,
   },
   {
     title: "Gravações audiovisuais",
@@ -42,6 +49,7 @@ const services = [
       "Cuidamos da estrutura e da luz com o olhar de quem entende a linguagem do vídeo. Trabalhamos em conjunto com produtoras para garantir o melhor resultado em cena.",
     icon: Heart,
     image: audiovisualImage,
+    imageAvif: audiovisualImageA,
   },
 ];
 
@@ -204,6 +212,7 @@ const Services = () => {
                   <LazyImage
                     src={service.image}
                     alt={service.title}
+                    srcAvif={service.imageAvif}
                     className="transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-900/50 to-transparent" />
