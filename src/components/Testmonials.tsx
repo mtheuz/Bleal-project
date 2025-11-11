@@ -133,7 +133,7 @@ const Testimonials: FC = () => {
   // 🔹 Controle centralizado de índice
   // =====================
   const goToIndex = (index: number) => {
-    setCurrentIndex((prev) => {
+    setCurrentIndex(() => {
       const total = testimonials.length;
       if (index < 0) return total - 1;
       if (index >= total) return 0;
