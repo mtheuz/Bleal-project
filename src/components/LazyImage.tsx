@@ -28,7 +28,7 @@ export const LazyImage = ({ src, srcAvif, alt, className }: LazyImageProps) => {
           loading="lazy"
           decoding="async"
           onLoad={() => setLoaded(true)}
-          className={`w-full h-full object-cover transform-gpu transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+          className={`w-full h-full object-cover  transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
             loaded
               ? "blur-0 scale-100 opacity-100"
               : "blur-xl scale-105 opacity-90"

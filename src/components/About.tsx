@@ -4,6 +4,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FaWhatsapp } from "react-icons/fa";
 import heroImage from "@/assets/img/rgb-stage.png";
+import heroImageA from "@/assets/img/rgb-stage.avif";
 import Carousel from "./ui/Carrousiel";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -158,11 +159,18 @@ const About = () => {
 
       {/* Background */}
       <div className="absolute inset-0 z-0">
-        <img
+        <picture>
+          <source
+            srcSet={heroImageA}
+            type="image/avif"
+          />
+           <img
           src={heroImage}
           alt="Palco profissional com iluminação RGB"
           className="w-full h-full object-cover opacity-90"
         />
+        </picture>
+       
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-red-dark/20 to-black/90" />
       </div>
 

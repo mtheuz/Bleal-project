@@ -37,7 +37,7 @@ const testimonials: Testimonial[] = [
   },
   {
     id: 2,
-    name: "israel levy",
+    name: "Israel Levy",
     role: "Marketing Grupo Nobre",
     company: "",
     rating: 5,
@@ -66,12 +66,11 @@ const Testimonials: FC = () => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(true);
 
-  const logosRef = useRef<(HTMLImageElement | null)[]>([]);
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const titleRef = useRef<HTMLHeadingElement | null>(null);
   const textRef = useRef<HTMLParagraphElement | null>(null);
   const mainCardRef = useRef<HTMLDivElement | null>(null);
-  const smallCardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const logosRef = useRef<(HTMLImageElement | null)[]>([]);
 
   // =====================
   // 🔹 GSAP ScrollTrigger Animations
@@ -124,17 +123,6 @@ const Testimonials: FC = () => {
           ease: "sine.inOut",
           delay: index * 0.5,
         });
-
-        gsap.to(logo, {
-          y: index % 2 === 0 ? 100 : -100,
-          filter: "blur(2px)",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        });
       });
     }, sectionRef);
 
@@ -142,32 +130,51 @@ const Testimonials: FC = () => {
   }, []);
 
   // =====================
+  // 🔹 Controle centralizado de índice
+  // =====================
+  const goToIndex = (index: number) => {
+    setCurrentIndex((prev) => {
+      const total = testimonials.length;
+      if (index < 0) return total - 1;
+      if (index >= total) return 0;
+      return index;
+    });
+  };
+
+  const nextTestimonial = (): void => {
+    setIsAutoPlaying(false);
+    goToIndex(currentIndex + 1);
+  };
+
+  const prevTestimonial = (): void => {
+    setIsAutoPlaying(false);
+    goToIndex(currentIndex - 1);
+  };
+
+  // =====================
   // 🔹 Auto play testimonials
   // =====================
   useEffect(() => {
     if (!isAutoPlaying) return;
-
     const interval = setInterval(() => {
-      setCurrentIndex((prev) =>
-        prev === testimonials.length - 1 ? 0 : prev + 1
-      );
+      goToIndex(currentIndex + 1);
     }, 5000);
-
     return () => clearInterval(interval);
-  }, [isAutoPlaying]);
+  }, [isAutoPlaying, currentIndex]);
 
   // =====================
-  // 🔹 Controls
+  // 🔹 Animação de transição suave (fade)
   // =====================
-  const nextTestimonial = (): void =>
-    setCurrentIndex((prev) =>
-      prev === testimonials.length - 1 ? 0 : prev + 1
-    );
+  useEffect(() => {
+    if (!mainCardRef.current) return;
 
-  const prevTestimonial = (): void =>
-    setCurrentIndex((prev) =>
-      prev === 0 ? testimonials.length - 1 : prev - 1
+    const el = mainCardRef.current;
+    gsap.fromTo(
+      el,
+      { opacity: 0, y: 15 },
+      { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }
     );
+  }, [currentIndex]);
 
   const currentTestimonial: Testimonial = testimonials[currentIndex];
 
@@ -177,37 +184,38 @@ const Testimonials: FC = () => {
   return (
     <section
       ref={sectionRef}
-      className="section-padding relative bg-black px-4 sm:px-6"
+      className="section-padding relative bg-black px-4 sm:px-6 text-white"
     >
       {/* Background logos */}
       <div className="absolute inset-0 pointer-events-none">
-  {[
-    { top: "5%", left: "10%" },
-    { top: "15%", right: "15%" },
-    { bottom: "20%", left: "5%" },
-    { bottom: "10%", right: "10%" },
-    { top: "40%", left: "40%" },
-  ].map((pos, i) => (
-    <img
-      key={i}
-      src={logoImage}
-      alt=""
-      ref={(el) => {logosRef.current[i] = el;}}
-      className="
-        absolute 
-        w-24 sm:w-36 md:w-48 lg:w-60 
-        opacity-20 
-        blur-[1px] 
-        transition-transform 
-        duration-700 
-        ease-in-out 
-        hover:scale-105
-      "
-      style={pos}
-    />
-  ))}
-</div>
-
+        {[
+          { top: "5%", left: "10%" },
+          { top: "15%", right: "15%" },
+          { bottom: "20%", left: "5%" },
+          { bottom: "10%", right: "10%" },
+          { top: "40%", left: "40%" },
+        ].map((pos, i) => (
+          <img
+            key={i}
+            src={logoImage}
+            alt=""
+            ref={(el) => {
+              logosRef.current[i] = el;
+            }}
+            className="
+              absolute 
+              w-24 sm:w-36 md:w-48 lg:w-60 
+              opacity-20 
+              blur-[1px] 
+              transition-transform 
+              duration-700 
+              ease-in-out 
+              hover:scale-105
+            "
+            style={pos}
+          />
+        ))}
+      </div>
 
       <div className="max-w-7xl mx-auto">
         {/* Header */}
@@ -219,7 +227,7 @@ const Testimonials: FC = () => {
             DEPOIMENTOS
           </h2>
           <p
-          
+            ref={textRef}
             className="text-xs text-white/70 max-w-2xl mx-auto mb-2 font-extralight uppercase"
           >
             O que nossos clientes dizem sobre nosso trabalho
@@ -237,11 +245,11 @@ const Testimonials: FC = () => {
         {/* Main testimonial */}
         <div className="max-w-md sm:max-w-4xl mx-auto" ref={mainCardRef}>
           <Card
-            className="bg-gradient-to-br from-card to-card/50 border-border shadow-elegant"
+            className="bg-gradient-to-br from-card to-card/50 border-border shadow-elegant transition-all duration-700"
             onMouseEnter={() => setIsAutoPlaying(false)}
             onMouseLeave={() => setIsAutoPlaying(true)}
           >
-            <CardContent className="p-6 sm:p-12">
+            <CardContent className="flex justify-center items-center p-6 sm:p-6 backdrop-blur-4xl">
               <div className="text-center">
                 <Quote className="h-10 sm:h-8 w-10 sm:w-8 mx-auto opacity-60 mb-4 sm:mb-8" />
                 <div className="flex justify-center gap-1 mb-4 sm:mb-6">
@@ -253,18 +261,17 @@ const Testimonials: FC = () => {
                     />
                   ))}
                 </div>
-                <blockquote className="text-sm sm:text-lg  leading-relaxed max-h-36 sm:max-h-40 mb-4 sm:mb-8">
+                <blockquote className="flex justify-center items-center text-sm leading-relaxed mb-4 h-[320px] sm:h-[100px] overflow-y-auto">
                   "{currentTestimonial.content}"
                 </blockquote>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-2">
-                  <div className="text-center ">
-                    <div className="font-bold text-sm sm:text-md text-gold">
+                  <div className="text-center">
+                    <div className="font-bold text-sm sm:text-md text-amber-100">
                       {currentTestimonial.name}
                     </div>
                     <div className="text-xs sm:text-sm">
                       {currentTestimonial.role}
                     </div>
-                   
                   </div>
                 </div>
               </div>
@@ -280,19 +287,22 @@ const Testimonials: FC = () => {
           >
             <ChevronLeft className="h-4 sm:h-6 w-4 sm:w-6 text-muted-foreground group-hover:text-gold transition-colors" />
           </button>
+
+          {/* Dots */}
           <div className="flex gap-1 sm:gap-2">
             {testimonials.map((_, i) => (
               <button
                 key={i}
-                onClick={() => setCurrentIndex(i)}
-                className={`w-2  h-2  rounded-full transition-all duration-300 ${
+                onClick={() => goToIndex(i)}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
                   i === currentIndex
-                    ? "bg-slate-200 shadow-glow-gold"
-                    : "bg-slate-800 hover:bg-purple"
+                    ? "bg-gray-400  scale-125"
+                    : "bg-slate-700 hover:bg-slate-500"
                 }`}
               />
             ))}
           </div>
+
           <button
             onClick={nextTestimonial}
             className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border cursor-pointer border-white/50 hover:border-gold transition-colors flex items-center justify-center group"
@@ -306,15 +316,12 @@ const Testimonials: FC = () => {
           {testimonials
             .filter((_, i) => i !== currentIndex)
             .slice(0, 2)
-            .map((testimonial, index) => (
+            .map((testimonial) => (
               <Card
                 key={testimonial.id}
-                ref={(el) => { smallCardsRef.current[index] = el; }}
                 className="border-2 border-white/50 hover:border-yellow-200 transition-all duration-300 cursor-pointer backdrop-blur-md"
                 onClick={() =>
-                  setCurrentIndex(
-                    testimonials.findIndex((t) => t.id === testimonial.id)
-                  )
+                  goToIndex(testimonials.findIndex((t) => t.id === testimonial.id))
                 }
               >
                 <CardContent className="p-4 sm:p-6">
@@ -327,7 +334,7 @@ const Testimonials: FC = () => {
                       />
                     ))}
                   </div>
-                  <p className="text-xs sm:text-sm mb-2 sm:mb-4 line-clamp-3 max-h-20">
+                  <p className="text-xs mb-2 sm:mb-4 line-clamp-3 max-h-20">
                     "{testimonial.content}"
                   </p>
                   <div className="flex items-center gap-2">
