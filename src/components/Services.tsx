@@ -1,4 +1,4 @@
-import { useRef, useLayoutEffect } from "react";
+import { useRef, useLayoutEffect, useState } from "react";
 import { Heart } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -7,8 +7,12 @@ import comemorativoImage from "@/assets/img/servicesIMG/comemorativo.jpg";
 import audiovisualImage from "@/assets/img/servicesIMG/audiovisual.jpg";
 import publicosImage from "@/assets/img/servicesIMG/palco.jpg";
 import CircularGallery from "../utils/circularGallery";
+import { LazyImage } from "./LazyImage";
 
 gsap.registerPlugin(ScrollTrigger);
+
+// 🧩 Componente de imagem otimizada
+
 
 const services = [
   {
@@ -193,16 +197,16 @@ const Services = () => {
             <div
               key={index}
               ref={addToCards}
-              className="group overflow-hidden border border-gray-900 transition-all duration-500 hover:scale-[1.02] bg-gray-800/30 backdrop-blur-sm rounded-xl shadow-md "
+              className="group overflow-hidden border border-gray-900 transition-all duration-500 hover:scale-[1.02] bg-gray-800/30 backdrop-blur-sm rounded-xl shadow-md"
             >
               {service.image && (
                 <div className="relative h-48 sm:h-56 overflow-hidden rounded-t-xl">
-                  <img
+                  <LazyImage
                     src={service.image}
                     alt={service.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="transition-transform duration-700 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-900/50 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-900/50 to-transparent" />
                 </div>
               )}
               <div className="p-4 sm:p-6 flex gap-4 border-t border-gray-700/30">
@@ -224,7 +228,7 @@ const Services = () => {
           <h1 className="text-xl sm:text-2xl oswald mb-2 uppercase">
             Casamentos e aniversários
           </h1>
-          <p className="text-xs text-white/70 max-w-2xl mx-auto  font-extralight uppercase">
+          <p className="text-xs text-white/70 max-w-2xl mx-auto font-extralight uppercase">
             Transformamos sonhos em cenários reais, com iluminação cênica, som
             de alta fidelidade e estruturas sob medida para momentos que marcam
             para sempre.
@@ -234,14 +238,8 @@ const Services = () => {
         <div
           ref={galleryRef}
           style={{ height: "600px", position: "relative" }}
-       
         >
-          <CircularGallery
-            bend={3 }
-            textColor="#ffffff"
-            borderRadius={0.05}
-            scrollEase={0.02}
-          />
+          <CircularGallery bend={3} textColor="#ffffff" borderRadius={0.05} scrollEase={0.02} />
         </div>
       </div>
     </section>

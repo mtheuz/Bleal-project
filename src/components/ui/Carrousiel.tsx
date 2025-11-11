@@ -1,17 +1,12 @@
-import  { useState, useEffect } from "react";
-import aboutIMG1 from "../../assets/img/about/i1.jpg"
-import aboutIMG2 from "../../assets/img/about/i2.jpg"
-import aboutIMG3 from "../../assets/img/about/i3.jpg"
-import aboutIMG4 from "../../assets/img/about/i4.jpg"
-import aboutIMG9 from "../../assets/img/about/i9.jpg"
+import { useState, useEffect } from "react";
+import aboutIMG1 from "../../assets/img/about/i1.jpg";
+import aboutIMG2 from "../../assets/img/about/i2.jpg";
+import aboutIMG3 from "../../assets/img/about/i3.jpg";
+import aboutIMG4 from "../../assets/img/about/i4.jpg";
+import aboutIMG9 from "../../assets/img/about/i9.jpg";
+import { LazyImage } from "../LazyImage";
 
-const images = [
- aboutIMG1,
- aboutIMG2,
- aboutIMG3,
- aboutIMG4,
- aboutIMG9,
-];
+const images = [aboutIMG1, aboutIMG2, aboutIMG3, aboutIMG4, aboutIMG9];
 
 export default function Carousel() {
   const [current, setCurrent] = useState(0);
@@ -44,10 +39,9 @@ export default function Carousel() {
               index === current ? "opacity-100" : "opacity-0"
             }`}
           >
-            <img
+            <LazyImage
               src={src}
               alt={`Slide ${index + 1}`}
-              className="w-full h-full object-cover"
             />
           </div>
         ))}

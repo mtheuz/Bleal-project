@@ -37,23 +37,23 @@ const testimonials: Testimonial[] = [
   },
   {
     id: 2,
-    name: "Melque Pimentel",
-    role: "Show Business",
+    name: "israel levy",
+    role: "Marketing Grupo Nobre",
     company: "",
     rating: 5,
     content:
-      "Trabalho com a B Leal há anos e sempre entregam qualidade excepcional. O som ficou perfeito e a montagem foi realizada no prazo. Recomendo muito!",
+      "É muito bom trabalhar com a BLeal! Atendimento e serviço excelentes!",
     image:
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
   },
   {
     id: 3,
-    name: "Carlos Mendes",
-    role: "Produtor Musical",
+    name: "Carolina Trindade",
+    role: "Marketing Boulevard Feira",
     company: "",
     rating: 5,
     content:
-      "Trabalho com a B Leal há mais de 3 anos e posso dizer que são os melhores do mercado. A sonorização é impecável e a equipe sempre entrega além do esperado. Parceria de sucesso garantido!",
+      "Trabalhar com Bruno é sempre uma experiência excelente. Além de cumprir todos os prazos com eficiência e comprometimento, ele e sua equipe se destacam pela criatividade e pelas soluções inovadoras que trazem para cada montagem em cada evento. São parceiros de verdade, estão sempre disponíveis e com uma equipe super solícita. É o tipo de fornecedor que faz toda diferença no sucesso de um evento!",
     image:
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
   },
