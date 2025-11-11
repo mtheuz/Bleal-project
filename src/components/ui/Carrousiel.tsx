@@ -4,44 +4,52 @@ import aboutIMG2 from "../../assets/img/about/i2.jpg";
 import aboutIMG3 from "../../assets/img/about/i3.jpg";
 import aboutIMG4 from "../../assets/img/about/i4.jpg";
 import aboutIMG9 from "../../assets/img/about/i9.jpg";
+
+import aboutIMG1A from "../../assets/img/about/i1.avif";
+import aboutIMG2A from "../../assets/img/about/i2.avif";
+import aboutIMG3A from "../../assets/img/about/i3.avif";
+import aboutIMG4A from "../../assets/img/about/i4.avif";
+import aboutIMG9A from "../../assets/img/about/i9.avif";
+
 import { LazyImage } from "../LazyImage";
 
-const images = [aboutIMG1, aboutIMG2, aboutIMG3, aboutIMG4, aboutIMG9];
+const images = [
+  { jpg: aboutIMG1, avif: aboutIMG1A },
+  { jpg: aboutIMG2, avif: aboutIMG2A },
+  { jpg: aboutIMG3, avif: aboutIMG3A },
+  { jpg: aboutIMG4, avif: aboutIMG4A },
+  { jpg: aboutIMG9, avif: aboutIMG9A },
+];
 
 export default function Carousel() {
   const [current, setCurrent] = useState(0);
   const length = images.length;
 
-  const nextSlide = () => {
-    setCurrent((prev) => (prev === length - 1 ? 0 : prev + 1));
-  };
-
-  const prevSlide = () => {
-    setCurrent((prev) => (prev === 0 ? length - 1 : prev - 1));
-  };
+  const nextSlide = () => setCurrent((prev) => (prev === length - 1 ? 0 : prev + 1));
+  const prevSlide = () => setCurrent((prev) => (prev === 0 ? length - 1 : prev - 1));
 
   // Troca automática de slides a cada 5 segundos
   useEffect(() => {
-    const timer = setInterval(() => {
-      nextSlide();
-    }, 5000);
+    const timer = setInterval(nextSlide, 5000);
     return () => clearInterval(timer);
-  });
+  }, [length]);
 
   return (
     <div className="relative w-full overflow-hidden rounded-lg">
       {/* Slides */}
       <div className="relative h-56 md:h-96">
-        {images.map((src, index) => (
+        {images.map((img, index) => (
           <div
             key={index}
-            className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
-              index === current ? "opacity-100" : "opacity-0"
+            className={`absolute inset-0 transition-opacity duration-700 ease-in-out transform-gpu will-change-opacity ${
+              index === current ? "opacity-100 z-10" : "opacity-0 z-0"
             }`}
           >
             <LazyImage
-              src={src}
+              src={img.jpg}
+              srcAvif={img.avif}
               alt={`Slide ${index + 1}`}
+              className="h-full w-full object-cover"
             />
           </div>
         ))}
@@ -53,10 +61,10 @@ export default function Carousel() {
           <button
             key={index}
             onClick={() => setCurrent(index)}
-            className={`w-2 h-2 rounded-full transition-all ${
-              index === current ? "bg-white" : "bg-gray-300/20"
+            className={`w-2.5 h-2.5 rounded-full transition-all ${
+              index === current ? "bg-white scale-110" : "bg-gray-400/30"
             }`}
-            aria-label={`Slide ${index + 1}`}
+            aria-label={`Ir para slide ${index + 1}`}
           />
         ))}
       </div>
@@ -66,7 +74,7 @@ export default function Carousel() {
         onClick={prevSlide}
         className="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 focus:outline-none"
       >
-        <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/5 hover:bg-white/10">
+        <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 transition">
           <svg
             className="w-4 h-4 text-white"
             xmlns="http://www.w3.org/2000/svg"
@@ -81,7 +89,7 @@ export default function Carousel() {
               d="M5 1 1 5l4 4"
             />
           </svg>
-          <span className="sr-only">Previous</span>
+          <span className="sr-only">Anterior</span>
         </span>
       </button>
 
@@ -90,7 +98,7 @@ export default function Carousel() {
         onClick={nextSlide}
         className="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 focus:outline-none"
       >
-        <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/5 hover:bg-white/10">
+        <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 transition">
           <svg
             className="w-4 h-4 text-white"
             xmlns="http://www.w3.org/2000/svg"
@@ -105,7 +113,7 @@ export default function Carousel() {
               d="m1 9 4-4-4-4"
             />
           </svg>
-          <span className="sr-only">Next</span>
+          <span className="sr-only">Próximo</span>
         </span>
       </button>
     </div>
