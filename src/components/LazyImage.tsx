@@ -12,12 +12,14 @@ export const LazyImage = ({ src, srcAvif, alt, className }: LazyImageProps) => {
 
   return (
     <div className="relative w-full h-full overflow-hidden bg-gray-900/50">
-      <div
-        className={`absolute inset-0 bg-gray-900/50 backdrop-blur-md transition-opacity duration-700 ease-out ${
-          loaded ? "opacity-0" : "opacity-100"
-        }`}
-      />
+      {/* Placeholder com shimmer moderno */}
+      {!loaded && (
+        <div className="absolute inset-0 overflow-hidden bg-slate-800/60">
+          <div className="absolute inset-0 animate-shimmer bg-gradient-to-r from-gray-800/60 via-gray-700/40 to-gray-800/60 blur-sm" />
+        </div>
+      )}
 
+      {/* Imagem com transição suave */}
       <picture>
         {srcAvif && <source srcSet={srcAvif} type="image/avif" />}
         <img
@@ -33,6 +35,8 @@ export const LazyImage = ({ src, srcAvif, alt, className }: LazyImageProps) => {
           } ${className || ""}`}
         />
       </picture>
+
+    
     </div>
   );
 };

@@ -109,7 +109,9 @@
   .pulse-rgb {
     animation: pulseRGB 3s ease-in-out infinite;
   }
-
+  .animate-shimmer {
+            animation: shimmer 2s infinite;
+          }
   /* Grade RGB suave no palco */
   .stage-grid {
     background-image:
@@ -222,6 +224,15 @@
     background-position: -200% center;
   }
 }
+
+@keyframes shimmer {
+          0% {
+            transform: translateX(-100%);
+          }
+          100% {
+            transform: translateX(100%);
+          }
+        }
 
 .animate-shine-text {
   animation: shine-text 2.5s linear infinite;
