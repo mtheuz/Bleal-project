@@ -1,4 +1,4 @@
-import { useState, useRef, useLayoutEffect } from "react";
+import { useState, useRef, useLayoutEffect, memo } from "react";
 import { Card, CardContent } from "../components/ui/Card";
 import { ExternalLink, X } from "lucide-react";
 import gsap from "gsap";
@@ -294,4 +294,4 @@ const Portfolio = () => {
   );
 };
 
-export default Portfolio;
+export default memo(Portfolio);

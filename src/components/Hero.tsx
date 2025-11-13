@@ -55,9 +55,9 @@ const Hero = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative  md:min-h-screen flex items-center justify-center overflow-hidden  w-full"
+      className="relative bg-black  md:min-h-screen flex items-center justify-center overflow-hidden  w-full"
     >
-       {/* Vídeo de fundo inclinado */}
+
       <div className="absolute inset-0 overflow-hidden z-0 " >
         <div className="absolute inset-0 -rotate-12 scale-145">
           <video
@@ -66,7 +66,7 @@ const Hero = () => {
             loop
             preload="auto"
             muted
-     
+            disableRemotePlayback
             playsInline
             className="w-full h-full object-cover opacity-100"
           />

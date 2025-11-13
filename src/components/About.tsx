@@ -167,6 +167,7 @@ const About = () => {
            <img
           src={heroImage}
           alt="Palco profissional com iluminação RGB"
+          
           className="w-full h-full object-cover opacity-90"
         />
         </picture>

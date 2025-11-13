@@ -479,40 +479,88 @@ class App {
     this.scroll.target = this.scroll.target < 0 ? -item : item;
   }
 
-  onResize() {
-    this.screen = {
-      width: this.container.clientWidth,
-      height: this.container.clientHeight,
-    };
-    this.renderer.setSize(this.screen.width, this.screen.height);
-    this.camera.perspective({
-      aspect: this.screen.width / this.screen.height,
-    });
-    const fov = (this.camera.fov * Math.PI) / 180;
-    const height = 2 * Math.tan(fov / 2) * this.camera.position.z;
-    const width = height * this.camera.aspect;
-    this.viewport = { width, height };
-    if (this.medias) {
-      this.medias.forEach((media) =>
-        media.onResize({ screen: this.screen, viewport: this.viewport })
-      );
-    }
+onResize() {
+  this.screen = {
+    width: this.container.clientWidth,
+    height: this.container.clientHeight,
+  };
+
+  const isMobile = this.screen.width < 768;
+
+  // Ajusta DPR (pixel ratio) corretamente no OGL
+  this.renderer.dpr = Math.min(window.devicePixelRatio, 2);
+  this.renderer.setSize(this.screen.width, this.screen.height);
+
+  // Ajuste da câmera conforme o tamanho da tela
+  const aspect = this.screen.width / this.screen.height;
+  this.camera.perspective({
+    aspect,
+    fov: isMobile ? 60 : 45, // FOV mais aberto em telas menores
+  });
+
+  // Ajuste de posição da câmera (aproxima mais em telas pequenas)
+  this.camera.position.z = isMobile ? 12 : 20;
+
+  // Recalcula o viewport
+  const fov = (this.camera.fov * Math.PI) / 180;
+  const height = 2 * Math.tan(fov / 2) * this.camera.position.z;
+  const width = height * aspect;
+  this.viewport = { width, height };
+
+  // Atualiza mídias
+  if (this.medias) {
+    this.medias.forEach((media) =>
+      media.onResize({ screen: this.screen, viewport: this.viewport })
+    );
   }
 
-  update() {
-    this.scroll.current = lerp(
-      this.scroll.current,
-      this.scroll.target,
-      this.scroll.ease
-    );
-    const direction = this.scroll.current > this.scroll.last ? "right" : "left";
-    if (this.medias) {
-      this.medias.forEach((media) => media.update(this.scroll, direction));
-    }
-    this.renderer.render({ scene: this.scene, camera: this.camera });
-    this.scroll.last = this.scroll.current;
+  // Ajusta sensibilidade e suavidade do scroll
+  if (isMobile) {
+    this.scrollSpeed = 1.3;
+    this.scroll.ease = 0.07;
+  } else {
+    this.scrollSpeed = 2;
+    this.scroll.ease = 0.05;
+  }
+}
+
+
+
+update() {
+  // Interpolação suave entre o valor atual e o alvo (scroll)
+  this.scroll.current = lerp(
+    this.scroll.current,
+    this.scroll.target,
+    this.scroll.ease
+  );
+
+  // Direção do scroll
+  const direction = this.scroll.current > this.scroll.last ? "right" : "left";
+
+  // Atualiza os elementos (medias)
+  if (this.medias) {
+    this.medias.forEach((media) => media.update(this.scroll, direction));
+  }
+
+  // Renderiza cena
+  this.renderer.render({ scene: this.scene, camera: this.camera });
+
+  // Atualiza último scroll
+  this.scroll.last = this.scroll.current;
+
+  // 🔧 Otimização para mobile
+  const isMobile = this.screen?.width < 768;
+
+  // Reduz a taxa de renderização em mobile para economizar bateria e evitar travamentos
+  if (isMobile) {
+    if (this.raf) cancelAnimationFrame(this.raf);
+    this.raf = setTimeout(() => {
+      this.raf = window.requestAnimationFrame(this.update.bind(this));
+    }, 16); // ~60fps, pode aumentar para 30fps (33ms) se quiser mais leve
+  } else {
     this.raf = window.requestAnimationFrame(this.update.bind(this));
   }
+}
 
   addEventListeners() {
     this.boundOnResize = this.onResize.bind(this);

@@ -293,11 +293,11 @@ const Testimonials: FC = () => {
             {testimonials.map((_, i) => (
               <button
                 key={i}
-                onClick={() => goToIndex(i)}
+    
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
                   i === currentIndex
                     ? "bg-gray-400  scale-125"
-                    : "bg-slate-700 hover:bg-slate-500"
+                    : "bg-slate-700"
                 }`}
               />
             ))}

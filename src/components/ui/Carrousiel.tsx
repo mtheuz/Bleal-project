@@ -32,11 +32,10 @@ export default function Carousel() {
   useEffect(() => {
     const timer = setInterval(nextSlide, 5000);
     return () => clearInterval(timer);
-  }, [length]);
+  }, [length, nextSlide]);
 
   return (
     <div className="relative w-full overflow-hidden rounded-lg">
-      {/* Slides */}
       <div className="relative h-56 md:h-96">
         {images.map((img, index) => (
           <div
