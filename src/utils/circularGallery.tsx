@@ -548,18 +548,11 @@ update() {
   // Atualiza último scroll
   this.scroll.last = this.scroll.current;
 
-  // 🔧 Otimização para mobile
-  const isMobile = this.screen?.width < 768;
 
-  // Reduz a taxa de renderização em mobile para economizar bateria e evitar travamentos
-  if (isMobile) {
-    if (this.raf) cancelAnimationFrame(this.raf);
-    this.raf = setTimeout(() => {
-      this.raf = window.requestAnimationFrame(this.update.bind(this));
-    }, 16); // ~60fps, pode aumentar para 30fps (33ms) se quiser mais leve
-  } else {
-    this.raf = window.requestAnimationFrame(this.update.bind(this));
-  }
+
+
+  this.raf = window.requestAnimationFrame(this.update.bind(this));
+
 }
 
   addEventListeners() {
