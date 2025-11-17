@@ -75,7 +75,8 @@ const Portfolio = () => {
   const [selectedItem, setSelectedItem] = useState<
     (typeof portfolioItems)[0] | null
   >(null);
-  const logosRef = useRef<HTMLImageElement[]>([]);
+
+  const logosRef = useRef<(HTMLImageElement | null)[]>([]);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -108,6 +109,7 @@ const Portfolio = () => {
             key={i}
             src={logoImage}
             alt=""
+            aria-hidden="true"
             ref={(el) => {
               if (el) logosRef.current[i] = el;
             }}
@@ -147,9 +149,13 @@ const Portfolio = () => {
           {portfolioItems.map((item) => (
             <Card
               key={item.id}
-              className={`group cursor-pointer overflow-hidden   ${
+              className={`group cursor-pointer overflow-hidden ${
                 item.featured ? "sm:col-span-2" : ""
               }`}
+              role="button"
+              tabIndex={0}
+              aria-label={`Ver detalhes do evento ${item.title}`}
+              onKeyDown={(e) => e.key === "Enter" && setSelectedItem(item)}
               onMouseEnter={() => setHoveredItem(item.id)}
               onMouseLeave={() => setHoveredItem(null)}
               onClick={() => setSelectedItem(item)}
@@ -162,6 +168,7 @@ const Portfolio = () => {
                     loop
                     playsInline
                     preload="auto"
+                    aria-label={`Prévia do evento ${item.title}`}
                     className={`absolute inset-0 w-full h-full object-cover transition-transform duration-500 ${
                       hoveredItem === item.id ? "scale-105" : "scale-100"
                     }`}
@@ -179,7 +186,6 @@ const Portfolio = () => {
                         el.currentTime = 0;
                         el.play();
                       } else {
-                        // Quando sai, pausa e mantém o frame atual
                         el.pause();
                       }
                     }}
@@ -205,7 +211,10 @@ const Portfolio = () => {
                         : "translate-y-2 sm:translate-y-4 opacity-0"
                     }`}
                   >
-                    <button className="flex items-center gap-2 text-gold font-medium text-xs sm:text-sm transition-colors">
+                    <button
+                      className="flex items-center gap-2 text-gold font-medium text-xs sm:text-sm transition-colors"
+                      aria-label={`Abrir detalhes do evento ${item.title}`}
+                    >
                       Ver Detalhes{" "}
                       <ExternalLink className="h-3 w-3 sm:h-4 sm:w-4" />
                     </button>
@@ -219,30 +228,45 @@ const Portfolio = () => {
         {/* Modal */}
         {selectedItem && (
           <div
-            className="fixed inset-0 bg-black/80 flex items-center justify-center  z-50 p-4"
+            className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-title"
+            aria-describedby="modal-description"
             onClick={() => setSelectedItem(null)}
           >
             <div
-              className="relative bg-white/10 backdrop-blur-md text-white rounded-2xl max-w-3xl w-full overflow-hidden "
+              className="relative bg-white/10 backdrop-blur-md text-white rounded-2xl max-w-3xl w-full overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
               <button
                 className="absolute top-3 z-10 right-3 text-white/80 hover:text-white cursor-pointer"
+                aria-label="Fechar modal"
                 onClick={() => setSelectedItem(null)}
               >
                 <X className="w-6 h-6" />
               </button>
+
               <video
                 src={selectedItem.video}
                 autoPlay
                 controls
                 className="w-full h-[400px] object-cover"
+                aria-label={`Vídeo completo do evento ${selectedItem.title}`}
               />
-              <div className="p-4 ">
-                <h3 className="text-lg font-bold mb-2 uppercase oswald">
+
+              <div className="p-4">
+                <h3
+                  className="text-lg font-bold mb-2 uppercase oswald"
+                  id="modal-title"
+                >
                   {selectedItem.title}
                 </h3>
-                <p className="text-sm text-white/70 mb-4 font-light">
+
+                <p
+                  className="text-sm text-white/70 mb-4 font-light"
+                  id="modal-description"
+                >
                   {selectedItem.description}
                 </p>
               </div>
@@ -256,37 +280,39 @@ const Portfolio = () => {
           <span className="font-light">Quer ver seu evento aqui? </span> Vamos
           criar algo incrível juntos!
         </p>
+
         <a
           href="https://wa.me/5575999535995"
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Abrir conversa no WhatsApp para solicitar orçamento"
           className="
-              relative inline-block px-6 sm:px-10 py-3 sm:py-4 font-bold text-white uppercase tracking-wide rounded-2xl overflow-hidden
-              transition-all duration-500 ease-in-out bg-gradient-to-r from-green-500 via-emerald-600 to-green-700
-              shadow-[0_0_20px_rgba(34,197,94,0.6)]
-              hover:shadow-[0_0_40px_rgba(34,197,94,0.9)]
-              hover:scale-105
-              active:scale-95
-              group
-            "
+            relative inline-block px-6 sm:px-10 py-3 sm:py-4 font-bold text-white uppercase tracking-wide rounded-2xl overflow-hidden
+            transition-all duration-500 ease-in-out bg-gradient-to-r from-green-500 via-emerald-600 to-green-700
+            shadow-[0_0_20px_rgba(34,197,94,0.6)]
+            hover:shadow-[0_0_40px_rgba(34,197,94,0.9)]
+            hover:scale-105
+            active:scale-95
+            group
+          "
         >
           <span className="relative z-5 text-xs sm:text-base">
             Solicitar meu orçamento
           </span>
           <span
             className="
-                absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent
-                translate-x-[-200%]
-                group-hover:translate-x-[200%]
-                transition-transform duration-[1200ms] ease-in-out
-              "
+              absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent
+              translate-x-[-200%]
+              group-hover:translate-x-[200%]
+              transition-transform duration-[1200ms] ease-in-out
+            "
           />
           <span
             className="
-                absolute inset-0 rounded-2xl border-2 border-transparent
-                group-hover:border-white/40
-                transition-all duration-500 ease-in-out
-              "
+              absolute inset-0 rounded-2xl border-2 border-transparent
+              group-hover:border-white/40
+              transition-all duration-500 ease-in-out
+            "
           />
         </a>
       </div>

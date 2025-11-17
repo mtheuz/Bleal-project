@@ -71,7 +71,6 @@ const About = () => {
             ease: "power2.out",
             scrollTrigger: {
               trigger: card,
-
               start: "top 95%",
               toggleActions: "play none none reverse",
               markers: false,
@@ -144,108 +143,127 @@ const About = () => {
       ref={sectionRef}
       id="sobre"
       className="relative overflow-hidden bg-black pb-8"
+      aria-labelledby="titulo-sobre"
     >
       {/* Botão WhatsApp */}
       <a
         href="https://wa.me/5575999535995"
+        aria-label="Entrar em contato via WhatsApp"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 animate-bounce right-6 w-16 h-16 rounded-full flex items-center justify-center text-white bg-gradient-to-r from-green-500 via-emerald-600 to-green-700 shadow-[0_0_20px_rgba(34,197,94,0.6)] hover:shadow-[0_0_40px_rgba(34,197,94,0.9)] hover:scale-110 active:scale-95 overflow-hidden transition-all duration-500 ease-in-out group z-50"
       >
-        <FaWhatsapp size={28} className="relative z-10" />
+        <FaWhatsapp
+          size={28}
+          className="relative z-10"
+          aria-hidden="true"
+        />
         <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-[1200ms] ease-in-out" />
         <span className="absolute inset-0 rounded-full border-2 border-transparent group-hover:border-white/40 transition-all duration-500 ease-in-out" />
       </a>
 
-      {/* Background */}
-      <div className="absolute inset-0 z-0">
+
+      <div className="absolute inset-0 z-0" aria-hidden="true">
         <picture>
-          <source
-            srcSet={heroImageA}
-            type="image/avif"
+          <source srcSet={heroImageA} type="image/avif" />
+          <img
+            src={heroImage}
+            alt=""
+            className="w-full h-full object-cover opacity-90"
+            aria-hidden="true"
           />
-           <img
-          src={heroImage}
-          alt="Palco profissional com iluminação RGB"
-          
-          className="w-full h-full object-cover opacity-90"
-        />
         </picture>
-       
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-red-dark/20 to-black/90" />
+
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-black/70 via-red-dark/20 to-black/90"
+          aria-hidden="true"
+        />
       </div>
 
-      {/* Conteúdo principal */}
+
       <div className="max-w-6xl mx-auto relative z-10 px-4 sm:px-6">
         <div className="text-center mb-12 sm:mb-20">
-          <h2 className="text-2xl sm:text-4xl font-black mb-4 mt-16 oswald">
+          <h2
+            id="titulo-sobre"
+            className="text-2xl sm:text-4xl font-black mb-4 mt-16 oswald"
+          >
             SOBRE NÓS
           </h2>
+
           <div className="flex gap-1 max-w-36 mx-auto mb-34">
             {["bg-red-500", "bg-green-500", "bg-blue-500"].map((color, i) => (
               <div
                 key={i}
                 ref={addBarRef}
                 className={`w-24 h-0.5 ${color} mx-auto rounded-full sm:w-42`}
+                aria-hidden="true"
               />
             ))}
           </div>
         </div>
 
-        <div className=" items-center ">
-          {/* Texto */}
+        <div className="items-center">
           <div
             ref={textsRef}
             className="sm:space-x-6 flex justify-between max-w-6xl items-center mx-auto sm:flex-row flex-col"
           >
-            <div className="max-w-lg space-y-6  ">
-              <h3 className="text-lg sm:text-2xl font-light  uppercase oswald ">
+            <div className="max-w-lg space-y-6">
+              <h3 className="text-lg sm:text-2xl font-light uppercase oswald">
                 Referência em soluções técnicas para eventos
               </h3>
+
               <p className="text-sm sm:text-[15px] leading-relaxed text-white/70">
                 A <span className="text-white">BLeal Produções</span> é
-                referência em soluções técnicas para eventos. Com cede em Feira
+                referência em soluções técnicas para eventos. Com sede em Feira
                 de Santana e atuação em todo o estado, entregamos estrutura,
                 iluminação e impacto visual com precisão, criatividade e
                 responsabilidade.
               </p>
+
               <p className="text-sm sm:text-md text-white/70 leading-relaxed">
                 Mais do que uma produtora, somos parceiros estratégicos de quem
                 busca se destacar no palco e fora dele. Contamos com uma equipe
                 própria, tecnologia de ponta e um compromisso claro: transformar
                 cada projeto em uma experiência memorável.
               </p>
-              <p className="text-xs font-light leading-relaxed  uppercase mb-5 sm:md-0">
+
+              <p className="text-xs font-light leading-relaxed uppercase mb-5 sm:md-0">
                 Atendemos eventos de todos os portes e estilos, sempre prontos
                 para encarar novos desafios e superar expectativas.
               </p>
             </div>
+
             <Carousel />
           </div>
 
-      
-          <div className="space-y-6 sm:space-y-0 sm:space-x-6  flex md:flex-row flex-col  w-full mt-12">
-            <div 
+          <div className="space-y-6 sm:space-y-0 sm:space-x-6 flex md:flex-row flex-col w-full mt-12">
+            <div
               ref={addCardRef}
               className="space-y-3 text-red-500 border-2 border-white/20 p-5 rounded-xl backdrop-blur-sm md:w-1/2 w-full"
+              role="group"
+              aria-labelledby="titulo-missao"
             >
               <div className="flex gap-2 text-md font-semibold oswald uppercase items-center">
-                <Target size={20} className="relative z-10" />
-                <h4>Nossa Missão</h4>
+                <Target size={20} aria-hidden="true" />
+                <h4 id="titulo-missao">Nossa Missão</h4>
               </div>
+
               <p className="text-white/70 text-[12px]">
                 Transformar cada evento em uma experiência audiovisual
                 inesquecível, superando expectativas e elevando padrões de
                 qualidade.
               </p>
             </div>
+
             <div
               ref={addCardRef}
               className="space-y-3 text-green-500 border-2 border-white/20 p-5 rounded-xl backdrop-blur-sm sm:w-1/2"
+              role="group"
+              aria-labelledby="titulo-visao"
             >
               <div className="flex gap-2 text-md font-semibold oswald uppercase items-center">
-                <Eye size={20} className="relative z-10" />
-                <h4>Nossa Visão</h4>
+                <Eye size={20} aria-hidden="true" />
+                <h4 id="titulo-visao">Nossa Visão</h4>
               </div>
 
               <p className="text-white/70 text-[12px]">
@@ -260,43 +278,47 @@ const About = () => {
         {/* Valores */}
         <div className="mt-12 sm:mt-20 pt-16 border-t border-white/10">
           <div className="flex justify-center text-blue-500 gap-2 text-lg font-semibold oswald uppercase items-center mb-6">
-            <Gem size={20} className="relative z-10" />
+            <Gem size={20} aria-hidden="true" />
             <h4>Nossos Valores</h4>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
             {[
               {
-                icon: <Award className="h-6 w-6 text-black" />,
+                icon: <Award className="h-6 w-6 text-black" aria-hidden="true" />,
                 title: "Excelência",
-                color: "black",
                 desc: "Buscamos a perfeição em cada detalhe, garantindo resultados que superam expectativas.",
               },
               {
-                icon: <Heart className="h-6 w-6 text-black" />,
+                icon: <Heart className="h-6 w-6 text-black" aria-hidden="true" />,
                 title: "Paixão",
-                color: "green",
                 desc: "Vivemos intensamente o que fazemos, colocando emoção e dedicação em cada projeto.",
               },
               {
-                icon: <Zap className="h-6 w-6 text-black" />,
+                icon: <Zap className="h-6 w-6 text-black" aria-hidden="true" />,
                 title: "Inovação",
-                color: "blue",
                 desc: "Estamos sempre à frente, explorando novas ideias e tecnologias para criar experiências únicas.",
               },
             ].map((val, i) => (
               <div
                 key={i}
                 ref={addValueRef}
-                className="text-center space-y-4  border-4 border-white/10 p-6 sm:p-8 rounded-xl backdrop-blur-sm hover:scale-105 transition-transform duration-500"
+                className="text-center space-y-4 border-4 border-white/10 p-6 sm:p-8 rounded-xl backdrop-blur-sm hover:scale-105 transition-transform duration-500"
+                role="group"
+                aria-labelledby={`valor-${i}`}
               >
                 <div className="w-12 h-12 mx-auto rounded-full flex items-center justify-center bg-white text-black">
                   {val.icon}
                 </div>
-                <h1 className="relative uppercase text-md z-10 inline-block bg-clip-text text-transparent bg-gradient-to-r from-white via-white/50 to-white bg-[length:200%_auto] animate-shine-text font-black">
+
+                <h1
+                  id={`valor-${i}`}
+                  className="relative uppercase text-md z-10 inline-block bg-clip-text text-transparent bg-gradient-to-r from-white via-white/50 to-white bg-[length:200%_auto] animate-shine-text font-black"
+                >
                   {val.title}
                 </h1>
-                <p className="text-sm sm:text-md text-white/70 font-light leading-relaxed oslwald ">
+
+                <p className="text-sm sm:text-md text-white/70 font-light leading-relaxed oslwald">
                   {val.desc}
                 </p>
               </div>

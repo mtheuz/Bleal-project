@@ -13,7 +13,7 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  useEffect(() => {  
+  useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -27,6 +27,7 @@ const Header = () => {
 
   return (
     <nav
+      aria-label="Menu principal"
       className={`
         fixed top-0 left-0 right-0 z-50 text-white
         transition-all duration-500 ease-in-out overflow-hidden
@@ -35,15 +36,17 @@ const Header = () => {
     >
       <div className="mx-10 md:px-12">
         <div className="flex items-center justify-between h-20">
+
           {/* LOGO */}
-          <div
+          <button
+            aria-label="Voltar ao início"
             className="flex items-center gap-3 cursor-pointer"
             onClick={() => scrollToSection("#")}
           >
             <img src={logoImage} alt="B Leal Produções" className="h-8 md:h-10 w-auto" />
-          </div>
+          </button>
 
-          {/* MENU DESKTOP */}
+ 
           <div className="hidden md:flex items-center gap-8 text-sm">
             {NAV_ITEMS.map(({ label, href }) => (
               <button
@@ -56,11 +59,11 @@ const Header = () => {
               </button>
             ))}
 
-            <ButtonSolicitar onClick={() => scrollToSection("#contato")} />
+            <ButtonSolicitar />
           </div>
 
-          {/* BOTÃO MOBILE */}
           <button
+            aria-label="Abrir/Fechar Menu"
             className="md:hidden w-10 h-10 flex items-center justify-center text-white"
             onClick={() => setIsMenuOpen((prev) => !prev)}
           >
@@ -69,18 +72,22 @@ const Header = () => {
         </div>
       </div>
 
-      {/* MENU MOBILE COM EFEITO SLIDE */}
+
       <div
         className={`
           md:hidden bg-black/60 backdrop-blur-md border-t border-white/30
-          transition-all duration-500 ease-in-out overflow-hidden
-          ${isMenuOpen ? "max-h-screen opacity-100 translate-y-0" : "max-h-0 opacity-0 -translate-y-10"}
+          overflow-hidden transition-all duration-500 ease-in-out
+          ${isMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"}
         `}
       >
-        <div className="container mx-auto px-6 py-6 flex flex-col gap-4 ">
+        <div
+          role="menu"
+          className="container mx-auto px-6 py-6 flex flex-col gap-4"
+        >
           {NAV_ITEMS.map(({ label, href }) => (
             <button
               key={label}
+              role="menuitem"
               onClick={() => scrollToSection(href)}
               className="text-left text-xs text-white uppercase hover:text-white/50 transition-colors duration-300 font-medium py-2"
             >
@@ -97,6 +104,7 @@ const Header = () => {
             <span className="relative z-10 bg-clip-text text-transparent bg-gradient-to-r from-white via-zinc to-white">
               Solicitar meu orçamento
             </span>
+
             <span className="absolute inset-0 rounded-xl bg-gradient-to-r from-transparent via-white/40 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-[1200ms] ease-in-out" />
             <span className="absolute inset-0 rounded-xl border-2 border-transparent group-hover:border-white/40 transition-all duration-500 ease-in-out" />
           </a>
@@ -106,14 +114,14 @@ const Header = () => {
   );
 };
 
-/* BOTÃO DE ORÇAMENTO (DESKTOP) */
-const ButtonSolicitar = ({ onClick }: { onClick: () => void }) => (
+
+const ButtonSolicitar = () => (
   <a
-    onClick={onClick}
     href="https://wa.me/5575999535995"
     target="_blank"
-    rel="noopener   noreferrer"
+    rel="noopener noreferrer"
     className="group relative px-10 py-4 ml-4 font-bold text-white text-sm uppercase tracking-wide bg-transparent cursor-pointer overflow-hidden transition-all duration-500 ease-in-out"
+    aria-label="Solicitar orçamento pelo WhatsApp"
   >
     <span className="relative z-10 inline-block bg-clip-text text-transparent bg-gradient-to-r from-white via-white/50 to-white bg-[length:200%_auto] animate-shine-text font-black">
       Solicitar orçamento

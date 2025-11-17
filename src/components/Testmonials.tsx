@@ -7,9 +7,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// =====================
-// 🔹 Tipagens
-// =====================
 interface Testimonial {
   id: number;
   name: string;
@@ -20,9 +17,6 @@ interface Testimonial {
   image: string;
 }
 
-// =====================
-// 🔹 Dados
-// =====================
 const testimonials: Testimonial[] = [
   {
     id: 1,
@@ -59,9 +53,6 @@ const testimonials: Testimonial[] = [
   },
 ];
 
-// =====================
-// 🔹 Componente
-// =====================
 const Testimonials: FC = () => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(true);
@@ -72,14 +63,10 @@ const Testimonials: FC = () => {
   const mainCardRef = useRef<HTMLDivElement | null>(null);
   const logosRef = useRef<(HTMLImageElement | null)[]>([]);
 
-  // =====================
-  // 🔹 GSAP ScrollTrigger Animations
-  // =====================
   useLayoutEffect(() => {
     if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Title + Subtitle animation
       gsap.from([titleRef.current, textRef.current], {
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -94,7 +81,6 @@ const Testimonials: FC = () => {
         ease: "power3.out",
       });
 
-      // Main card entrance
       if (mainCardRef.current) {
         gsap.from(mainCardRef.current, {
           scrollTrigger: {
@@ -110,7 +96,6 @@ const Testimonials: FC = () => {
         });
       }
 
-      // Background logos animation
       logosRef.current.forEach((logo, index) => {
         if (!logo) return;
 
@@ -129,9 +114,6 @@ const Testimonials: FC = () => {
     return () => ctx.revert();
   }, []);
 
-  // =====================
-  // 🔹 Controle centralizado de índice
-  // =====================
   const goToIndex = (index: number) => {
     setCurrentIndex(() => {
       const total = testimonials.length;
@@ -151,9 +133,6 @@ const Testimonials: FC = () => {
     goToIndex(currentIndex - 1);
   };
 
-  // =====================
-  // 🔹 Auto play testimonials
-  // =====================
   useEffect(() => {
     if (!isAutoPlaying) return;
     const interval = setInterval(() => {
@@ -162,9 +141,6 @@ const Testimonials: FC = () => {
     return () => clearInterval(interval);
   }, [isAutoPlaying, currentIndex]);
 
-  // =====================
-  // 🔹 Animação de transição suave (fade)
-  // =====================
   useEffect(() => {
     if (!mainCardRef.current) return;
 
@@ -178,15 +154,16 @@ const Testimonials: FC = () => {
 
   const currentTestimonial: Testimonial = testimonials[currentIndex];
 
-  // =====================
-  // 🔹 Render
-  // =====================
   return (
     <section
       ref={sectionRef}
+      aria-labelledby="testimonials-title"
+      role="region"
+      aria-roledescription="Carrossel de depoimentos"
+      aria-live="polite"
       className="section-padding relative bg-black px-4 sm:px-6 text-white"
     >
-      {/* Background logos */}
+      {/* Background logos decorativos */}
       <div className="absolute inset-0 pointer-events-none">
         {[
           { top: "5%", left: "10%" },
@@ -199,6 +176,7 @@ const Testimonials: FC = () => {
             key={i}
             src={logoImage}
             alt=""
+            aria-hidden="true"
             ref={(el) => {
               logosRef.current[i] = el;
             }}
@@ -221,10 +199,11 @@ const Testimonials: FC = () => {
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16">
           <h2
+            id="testimonials-title"
             ref={titleRef}
-            className="text-2xl sm:text-4xl md:text-4xl font-black mb-2 oswald"
+            className="text-2xl sm:text-4xl md:text-4xl font-black mb-2 oswald uppercase"
           >
-            DEPOIMENTOS
+            Clientes que já viveram essa experiência
           </h2>
           <p
             ref={textRef}
@@ -232,7 +211,9 @@ const Testimonials: FC = () => {
           >
             O que nossos clientes dizem sobre nosso trabalho
           </p>
-          <div className="flex gap-1 max-w-36 mx-auto">
+
+          {/* Linhas decorativas */}
+          <div className="flex gap-1 max-w-36 mx-auto" aria-hidden="true">
             {["bg-red-500", "bg-green-500", "bg-blue-500"].map((color, i) => (
               <div
                 key={i}
@@ -251,29 +232,37 @@ const Testimonials: FC = () => {
           >
             <CardContent className="flex justify-center items-center p-6 sm:p-6 backdrop-blur-4xl">
               <div className="text-center">
-                <Quote className="h-10 sm:h-8 w-10 sm:w-8 mx-auto opacity-60 mb-4 sm:mb-8" />
+                <Quote aria-hidden="true" className="h-10 sm:h-8 w-10 sm:w-8 mx-auto opacity-60 mb-4 sm:mb-8" />
+
                 <div className="flex justify-center gap-1 mb-4 sm:mb-6">
                   {[...Array(currentTestimonial.rating)].map((_, i) => (
                     <Star
                       key={i}
+                      aria-hidden="true"
                       color="yellow"
                       className="h-4 sm:h-6 w-4 sm:w-6 fill-current"
                     />
                   ))}
                 </div>
-                <blockquote className="flex justify-center items-center text-sm leading-relaxed mb-4 h-[320px] sm:h-[100px] overflow-y-auto">
+
+                <blockquote
+                  className="flex justify-center items-center text-sm leading-relaxed mb-4 h-[320px] sm:h-[100px] overflow-y-auto"
+                  aria-label="Depoimento do cliente"
+                >
                   "{currentTestimonial.content}"
                 </blockquote>
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-2">
+
+                <footer
+                  className="flex flex-col sm:flex-row items-center justify-center gap-2"
+                  aria-label="Informações do autor do depoimento"
+                >
                   <div className="text-center">
                     <div className="font-bold text-sm sm:text-md text-amber-100">
                       {currentTestimonial.name}
                     </div>
-                    <div className="text-xs sm:text-sm">
-                      {currentTestimonial.role}
-                    </div>
+                    <div className="text-xs sm:text-sm">{currentTestimonial.role}</div>
                   </div>
-                </div>
+                </footer>
               </div>
             </CardContent>
           </Card>
@@ -283,21 +272,22 @@ const Testimonials: FC = () => {
         <div className="flex items-center justify-center gap-4 sm:gap-8 mt-6 sm:mt-12">
           <button
             onClick={prevTestimonial}
+            aria-label="Mostrar depoimento anterior"
             className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border cursor-pointer border-white/50 hover:border-gold transition-colors flex items-center justify-center group"
           >
-            <ChevronLeft className="h-4 sm:h-6 w-4 sm:w-6 text-muted-foreground group-hover:text-gold transition-colors" />
+            <ChevronLeft aria-hidden="true" className="h-4 sm:h-6 w-4 sm:w-6 text-muted-foreground group-hover:text-gold transition-colors" />
           </button>
 
-          {/* Dots */}
-          <div className="flex gap-1 sm:gap-2">
+          <div className="flex gap-1 sm:gap-2" role="tablist">
             {testimonials.map((_, i) => (
               <button
                 key={i}
-    
+                onClick={() => goToIndex(i)}
+                aria-label={`Ir para o depoimento número ${i + 1}`}
+                aria-pressed={i === currentIndex}
+                role="tab"
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  i === currentIndex
-                    ? "bg-gray-400  scale-125"
-                    : "bg-slate-700"
+                  i === currentIndex ? "bg-gray-400 scale-125" : "bg-slate-700"
                 }`}
               />
             ))}
@@ -305,9 +295,10 @@ const Testimonials: FC = () => {
 
           <button
             onClick={nextTestimonial}
+            aria-label="Mostrar próximo depoimento"
             className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border cursor-pointer border-white/50 hover:border-gold transition-colors flex items-center justify-center group"
           >
-            <ChevronRight className="h-4 sm:h-6 w-4 sm:w-6 text-muted-foreground group-hover:text-gold transition-colors" />
+            <ChevronRight aria-hidden="true" className="h-4 sm:h-6 w-4 sm:w-6 text-muted-foreground group-hover:text-gold transition-colors" />
           </button>
         </div>
 
@@ -317,36 +308,40 @@ const Testimonials: FC = () => {
             .filter((_, i) => i !== currentIndex)
             .slice(0, 2)
             .map((testimonial) => (
-              <Card
+              <button
                 key={testimonial.id}
-                className="border-2 border-white/50 hover:border-yellow-200 transition-all duration-300 cursor-pointer backdrop-blur-md"
                 onClick={() =>
                   goToIndex(testimonials.findIndex((t) => t.id === testimonial.id))
                 }
+                className="text-left w-full"
+                aria-label={`Ler depoimento de ${testimonial.name}`}
               >
-                <CardContent className="p-4 sm:p-6">
-                  <div className="flex gap-1 mb-2 sm:mb-3">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star
-                        key={i}
-                        color="yellow"
-                        className="h-3 w-3 fill-current"
-                      />
-                    ))}
-                  </div>
-                  <p className="text-xs mb-2 sm:mb-4 line-clamp-3 max-h-20">
-                    "{testimonial.content}"
-                  </p>
-                  <div className="flex items-center gap-2">
-                    <div>
-                      <div className="font-medium text-xs sm:text-sm">
-                        {testimonial.name}
-                      </div>
-                      <div className="text-xs">{testimonial.company}</div>
+                <Card className="border-2 border-white/50 hover:border-yellow-200 transition-all duration-300 cursor-pointer backdrop-blur-md">
+                  <CardContent className="p-4 sm:p-6">
+                    <div className="flex gap-1 mb-2 sm:mb-3">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <Star
+                          key={i}
+                          aria-hidden="true"
+                          color="yellow"
+                          className="h-3 w-3 fill-current"
+                        />
+                      ))}
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
+                    <p className="text-xs mb-2 sm:mb-4 line-clamp-3 max-h-20">
+                      "{testimonial.content}"
+                    </p>
+                    <div className="flex items-center gap-2">
+                      <div>
+                        <div className="font-medium text-xs sm:text-sm">
+                          {testimonial.name}
+                        </div>
+                        <div className="text-xs">{testimonial.company}</div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </button>
             ))}
         </div>
       </div>

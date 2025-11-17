@@ -15,9 +15,6 @@ import { LazyImage } from "./LazyImage";
 
 gsap.registerPlugin(ScrollTrigger);
 
-
-
-
 const services = [
   {
     title: "Eventos Públicos",
@@ -165,21 +162,31 @@ const Services = () => {
     <section
       id="servicos"
       ref={sectionRef}
+      aria-labelledby="services-title"
       className="py-16 sm:py-24 bg-black relative overflow-hidden"
     >
-      {/* Background effects */}
-      <div className="absolute top-0 left-1/3 w-72 h-72 sm:w-96 sm:h-96 bg-purple-500/5 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 right-1/3 w-72 h-72 sm:w-96 sm:h-96 bg-indigo-500/5 rounded-full blur-3xl"></div>
+      {/* Background effects (decorative) */}
+      <div
+        aria-hidden="true"
+        className="absolute top-0 left-1/3 w-72 h-72 sm:w-96 sm:h-96 bg-purple-500/5 rounded-full blur-3xl"
+      ></div>
+
+      <div
+        aria-hidden="true"
+        className="absolute bottom-0 right-1/3 w-72 h-72 sm:w-96 sm:h-96 bg-indigo-500/5 rounded-full blur-3xl"
+      ></div>
 
       <div className="max-w-7xl mx-auto relative z-10 px-4 sm:px-6">
         {/* Cabeçalho */}
         <div className="text-center mb-12 sm:mb-16">
           <h2
+            id="services-title"
             ref={titleRef}
             className="text-2xl sm:text-4xl font-black mb-2 uppercase oswald"
           >
             Nossos Serviços
           </h2>
+
           <p
             ref={subtitleRef}
             className="text-xs text-white/70 max-w-2xl mx-auto mb-2 font-extralight uppercase"
@@ -188,7 +195,7 @@ const Services = () => {
             memorável
           </p>
 
-          <div className="flex gap-1 max-w-36 mx-auto">
+          <div className="flex gap-1 max-w-36 mx-auto" aria-hidden="true">
             {["bg-red-500", "bg-green-500", "bg-blue-500"].map((color, i) => (
               <div
                 key={i}
@@ -205,6 +212,9 @@ const Services = () => {
             <div
               key={index}
               ref={addToCards}
+              role="article"
+              aria-labelledby={`service-title-${index}`}
+              aria-describedby={`service-desc-${index}`}
               className="group overflow-hidden border border-gray-900 transition-all duration-500 hover:scale-[1.02] bg-gray-800/30 backdrop-blur-sm rounded-xl shadow-md"
             >
               {service.image && (
@@ -215,15 +225,26 @@ const Services = () => {
                     srcAvif={service.imageAvif}
                     className="transition-transform duration-700 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-900/50 to-transparent" />
+                  <div
+                    aria-hidden="true"
+                    className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-900/50 to-transparent"
+                  />
                 </div>
               )}
+
               <div className="p-4 sm:p-6 flex gap-4 border-t border-gray-700/30">
                 <div>
-                  <h3 className="font-light text-white group-hover:text-zinc-300 transition-colors duration-300 uppercase text-sm sm:text-lg oswald">
+                  <h3
+                    id={`service-title-${index}`}
+                    className="font-light text-white group-hover:text-zinc-300 transition-colors duration-300 uppercase text-sm sm:text-lg oswald"
+                  >
                     {service.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-gray-400 mt-2 font-light">
+
+                  <p
+                    id={`service-desc-${index}`}
+                    className="text-xs sm:text-sm text-gray-400 mt-2 font-light"
+                  >
                     {service.description}
                   </p>
                 </div>
@@ -247,8 +268,14 @@ const Services = () => {
         <div
           ref={galleryRef}
           style={{ height: "600px", position: "relative" }}
+          aria-label="Galeria circular interativa"
         >
-          <CircularGallery bend={3} textColor="#ffffff" borderRadius={0.05} scrollEase={0.02} />
+          <CircularGallery
+            bend={3}
+            textColor="#ffffff"
+            borderRadius={0.05}
+            scrollEase={0.02}
+          />
         </div>
       </div>
     </section>

@@ -55,10 +55,15 @@ const Hero = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-black  md:min-h-screen flex items-center justify-center overflow-hidden  w-full"
+      className="relative bg-black md:min-h-screen flex items-center justify-center overflow-hidden w-full"
+      role="banner"
+      aria-label="Seção principal: apresentação da B Leal Produções"
     >
 
-      <div className="absolute inset-0 overflow-hidden z-0 " >
+      <div
+        className="absolute inset-0 overflow-hidden z-0"
+        aria-hidden="true"
+      >
         <div className="absolute inset-0 -rotate-12 scale-145">
           <video
             src="\logo3d.mp4"
@@ -66,18 +71,22 @@ const Hero = () => {
             loop
             preload="auto"
             muted
-            disableRemotePlayback
             playsInline
+            disableRemotePlayback
             className="w-full h-full object-cover opacity-100"
+            aria-hidden="true"
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/10 transition-all duration-700 ease-in-out" />
+        <div
+          className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/10 transition-all duration-700 ease-in-out"
+          aria-hidden="true"
+        />
       </div>
-      
+
       <div className="z-10 text-center px-6 md:max-w-7xl mx-auto mt-36">
         <div className="p-5 md:p-10">
-          <div className="mb-8 mt-24 md:mt-8 flex flex-col items-center ">
-            <div ref={logo2Ref} className="p-2  rounded-xl">
+          <div className="mb-8 mt-24 md:mt-8 flex flex-col items-center">
+            <div ref={logo2Ref} className="p-2 rounded-xl">
               <img
                 src={logoImage}
                 alt="B Leal Produções - Logo"
@@ -86,14 +95,17 @@ const Hero = () => {
             </div>
           </div>
 
-          <div ref={descriptionRef} className=" text-center">
-            <h3 className="text-2xl md:text-4xl lg:text-4xl  leading-tight">
-              <span className="text-zinc-200 text-3xl md:text-5xl font-extralight leading-none oswald uppercase border-0 sm:border-b-[0.5px] border-white/15 border-red pb-2 ">
+          <div ref={descriptionRef} className="text-center">
+            <h3 className="text-2xl md:text-4xl lg:text-4xl leading-tight">
+              <span className="text-zinc-200 text-3xl md:text-5xl font-extralight leading-none oswald uppercase border-0 sm:border-b-[0.5px] border-white/15 border-red pb-2">
                 Levamos seu evento ao próximo nível
               </span>
             </h3>
 
-            <p className="text-xs md:text-sm font-extralight mt-5 text-white/90 max-w-xl mx-auto  leading-relaxed pt-2 uper">
+            <p
+              className="text-xs md:text-sm font-extralight mt-5 text-white/90 max-w-xl mx-auto leading-relaxed pt-2 uper"
+              aria-label="Descrição breve dos serviços oferecidos"
+            >
               Iluminação, estrutura, efeitos visuais e shows que transformam
               momentos em experiências inesquecíveis.
             </p>
@@ -104,30 +116,28 @@ const Hero = () => {
             <a
               href="https://wa.me/5575999535995"
               target="_blank"
-              rel="noopener   noreferrer"
+              rel="noopener noreferrer"
               ref={btn1Ref}
+              aria-label="Solicitar orçamento via WhatsApp"
+              title="Solicitar orçamento"
               className="
-                      relative
-                      inline-block
-                      px-10 py-4
-                      text-xs
-                      text-white
-                      uppercase
-                      
-                      border-2
-                      border-white/40
-                      rounded-xl
-                      overflow-hidden
-                      transition-all
-                      duration-500
-                      ease-in-out
-                      bg-gradient-to-r from-zinc-800/50 via-black/70 to-zinc-800/50
-                      shadow-[10px_10px_20px_rgba(0,0,0,0.2)]
-                      hover:shadow-[0_0_10px_rgba(0,0,0,0.9)]
-                      hover:scale-105
-                      active:scale-95
-                      group
-                      "
+                relative
+                inline-block
+                px-10 py-4
+                text-xs
+                text-white
+                uppercase
+                border-2 border-white/40
+                rounded-xl
+                overflow-hidden
+                transition-all duration-500 ease-in-out
+                bg-gradient-to-r from-zinc-800/50 via-black/70 to-zinc-800/50
+                shadow-[10px_10px_20px_rgba(0,0,0,0.2)]
+                hover:shadow-[0_0_10px_rgba(0,0,0,0.9)]
+                hover:scale-105
+                active:scale-95
+                group
+              "
             >
               <span className="relative z-10 bg-clip-text text-transparent bg-gradient-to-r from-white via-zinc to-white">
                 Solicitar meu orçamento
@@ -135,21 +145,23 @@ const Hero = () => {
 
               <span
                 className="
-                        absolute inset-0
-                        rounded-xl
-                        bg-gradient-to-r from-transparent via-white/40 to-transparent
-                        translate-x-[-200%]
-                        group-hover:translate-x-[200%]
-                        transition-transform duration-[1200ms] ease-in-out
-                        "
+                  absolute inset-0 rounded-xl
+                  bg-gradient-to-r from-transparent via-white/40 to-transparent
+                  translate-x-[-200%]
+                  group-hover:translate-x-[200%]
+                  transition-transform duration-[1200ms] ease-in-out
+                "
+                aria-hidden="true"
               />
 
               <span
                 className="
-      absolute inset-0 rounded-xl border-2 border-transparent
-      
-      transition-all duration-500 ease-in-out
-    "
+                  absolute inset-0
+                  rounded-xl
+                  border-2 border-transparent
+                  transition-all duration-500 ease-in-out
+                "
+                aria-hidden="true"
               />
             </a>
 
@@ -160,6 +172,8 @@ const Hero = () => {
                 const portfolioSection = document.getElementById("portfolio");
                 portfolioSection?.scrollIntoView({ behavior: "smooth" });
               }}
+              aria-label="Ver o portfólio de eventos realizados"
+              title="Ver portfólio"
             >
               Veja a Magia Acontecendo
             </button>
@@ -167,16 +181,20 @@ const Hero = () => {
         </div>
       </div>
 
-
       <div>
         <a
           href="#sobre"
           ref={arrowDownRef}
-          className="hidden sm:flex absolute bottom-24 md:bottom-8 left-1/2 transform -translate-x-1/2 "
+          className="hidden sm:flex absolute bottom-24 md:bottom-8 left-1/2 transform -translate-x-1/2"
+          aria-label="Ir para a seção Sobre"
+          title="Ir para a seção Sobre"
         >
-          <div className="border-2 border-red rounded-full flex justify-center animate-bounce">
-            <div className="px-1 py-1 bg-gradient-to-b from-red via-green to-blue rounded-full pulse-rgb ">
-              <ArrowDown size={20} />
+          <div
+            className="border-2 border-red rounded-full flex justify-center animate-bounce"
+            aria-hidden="true"
+          >
+            <div className="px-1 py-1 bg-gradient-to-b from-red via-green to-blue rounded-full pulse-rgb">
+              <ArrowDown size={20} aria-hidden="true" />
             </div>
           </div>
         </a>
