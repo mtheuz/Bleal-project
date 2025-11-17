@@ -98,6 +98,7 @@ const Header = () => {
           <a
             href="https://wa.me/5575999535995"
             target="_blank"
+            role="solcitar orçamento"
             rel="noopener noreferrer"
             className="relative inline-block px-10 py-4 text-xs text-white uppercase text-center border-2 border-white/40 rounded-xl overflow-hidden transition-all duration-500 ease-in-out bg-gradient-to-r from-zinc-800/50 via-black/70 to-zinc-800/50 shadow-[10px_10px_20px_rgba(0,0,0,0.2)] hover:shadow-[0_0_10px_rgba(0,0,0,0.9)] hover:scale-105 active:scale-95 group"
           >

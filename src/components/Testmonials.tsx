@@ -303,15 +303,13 @@ const Testimonials: FC = () => {
           </button>
 
           {/* Dots */}
-          <div className="flex gap-1 sm:gap-2" role="tablist">
+          <div className="flex gap-1 sm:gap-2 " aria-hidden="true">
             {testimonials.map((_, i) => (
-              <button
+              <div
                 key={i}
-                type="button"
-                role="tab"
+
                 aria-selected={i === currentIndex}
                 aria-label={`Ir para depoimento ${i + 1}`}
-                onClick={() => goToIndex(i)}
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
                   i === currentIndex ? "bg-gray-400 scale-125" : "bg-slate-700"
                 }`}
