@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fontsource/be-vietnam-pro": "^5.2.8",
+    "@fontsource/oswald": "^5.2.8",
     "@tailwindcss/vite": "^4.1.12",
     "@tanstack/react-query": "^5.85.9",
     "clsx": "^2.1.1",

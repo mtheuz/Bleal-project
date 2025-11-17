@@ -20,7 +20,7 @@ const portfolioItems = [
     category: "Corporativo",
     description:
       "Uma noite inesquecível pede uma produção à altura. Na bodega do Pablo, a B Leal entregou estrutura grandiosa, iluminação cênica e telões impactantes, criando um espetáculo que uniu tecnologia e emoção. Porque não se trata apenas de montar um palco, e sim de criar experiências que marcam para sempre. 💡🎶",
-    video: "https://res.cloudinary.com/ds5exijte/video/upload/v1761610022/BODEGA_DO_PABLO_ac7j2l.mov",
+    video: "https://res.cloudinary.com/ds5exijte/video/upload/v1763402610/BODEGA-DO-PABLO_lswg6d.mp4",
     featured: false,
   },
   {
@@ -29,7 +29,7 @@ const portfolioItems = [
     category: "Teatro",
     description:
       "Mais uma edição do Boulevard Fashion com a assinatura da B Leal Produções! iluminação de ponta, estrutura completa, sonorização, geradores e painéis de LED que transformaram o evento em um verdadeiro espetáculo.",
-    video: "https://res.cloudinary.com/ds5exijte/video/upload/v1761609994/EVENTO_COORPORATIVO_-_BOULEVAR_SHOPPING_ntei21.mov",
+    video: "https://res.cloudinary.com/ds5exijte/video/upload/v1763402588/EVENTO-COORPORATIVO-BOULEVAR-SHOPPING-_cxjizt.mp4",
     featured: false,
   },
   {
@@ -65,7 +65,7 @@ const portfolioItems = [
     category: "Shows",
     description:
       "Vaquejada de Serrinha em grande estilo! A B Leal esteve presente assinando a estrutura e iluminação que deram ainda mais força e brilho a esse evento que já é tradição.💡 Porque cada espetáculo merece a grandeza da luz certa e a segurança de uma estrutura impecável.",
-    video: "https://res.cloudinary.com/ds5exijte/video/upload/v1761610027/VAQUEJADA_DE_SERRINHA_zh1ttq.mov",
+    video: "https://res.cloudinary.com/ds5exijte/video/upload/v1763402613/VAQUEJADA-DE-SERRINHA-_augsxn.mp4",
     featured: false,
   },
 ];
