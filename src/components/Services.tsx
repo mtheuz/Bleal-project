@@ -268,6 +268,7 @@ const Services = () => {
         <div
           ref={galleryRef}
           style={{ height: "600px", position: "relative" }}
+          role="region"
           aria-label="Galeria circular interativa"
         >
           <CircularGallery

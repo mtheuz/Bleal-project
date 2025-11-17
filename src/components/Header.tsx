@@ -81,13 +81,13 @@ const Header = () => {
         `}
       >
         <div
-          role="menu"
+     
           className="container mx-auto px-6 py-6 flex flex-col gap-4"
         >
           {NAV_ITEMS.map(({ label, href }) => (
             <button
               key={label}
-              role="menuitem"
+              aria-label={`Ir para a seção ${label}`}
               onClick={() => scrollToSection(href)}
               className="text-left text-xs text-white uppercase hover:text-white/50 transition-colors duration-300 font-medium py-2"
             >
@@ -98,7 +98,7 @@ const Header = () => {
           <a
             href="https://wa.me/5575999535995"
             target="_blank"
-            role="solcitar orçamento"
+            aria-label="Solicitar meu orçamento pelo WhatsApp"
             rel="noopener noreferrer"
             className="relative inline-block px-10 py-4 text-xs text-white uppercase text-center border-2 border-white/40 rounded-xl overflow-hidden transition-all duration-500 ease-in-out bg-gradient-to-r from-zinc-800/50 via-black/70 to-zinc-800/50 shadow-[10px_10px_20px_rgba(0,0,0,0.2)] hover:shadow-[0_0_10px_rgba(0,0,0,0.9)] hover:scale-105 active:scale-95 group"
           >
