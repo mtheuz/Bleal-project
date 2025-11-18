@@ -7,9 +7,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// =====================
-// 🔹 Tipagens
-// =====================
 interface Testimonial {
   id: number;
   name: string;
@@ -20,9 +17,6 @@ interface Testimonial {
   image: string;
 }
 
-// =====================
-// 🔹 Dados
-// =====================
 const testimonials: Testimonial[] = [
   {
     id: 1,
@@ -108,27 +102,25 @@ const Testimonials: FC = () => {
         });
       }
 
-      logosRef.current.forEach((logo, index) => {
-        if (!logo) return;
-
+    logosRef.current
+      .filter((logo): logo is HTMLImageElement => logo !== null)
+      .forEach((logo, index) => {
         gsap.to(logo, {
           y: index % 2 === 0 ? 20 : -20,
-          rotation: index % 2 === 0 ? 8 : -8,
+          rotation: index % 2 === 0 ? 8 : -16,
+          filter: "blur(8px)",
           duration: 6,
           repeat: -1,
           yoyo: true,
           ease: "sine.inOut",
-          delay: index * 0.5,
+          delay: index * 0.8,
         });
       });
-    }, sectionRef);
+  }, sectionRef); 
+  return () => ctx.revert();
+}, []);
 
-    return () => ctx.revert();
-  }, []);
-
-  // =====================
-  // 🔹 Controle de índice
-  // =====================
+ 
   const goToIndex = (index: number) => {
     setCurrentIndex(() => {
       const total = testimonials.length;
@@ -148,9 +140,7 @@ const Testimonials: FC = () => {
     goToIndex(currentIndex - 1);
   };
 
-  // =====================
-  // 🔹 Auto play
-  // =====================
+
   useEffect(() => {
     if (!isAutoPlaying) return;
     const interval = setInterval(() => {
@@ -159,9 +149,7 @@ const Testimonials: FC = () => {
     return () => clearInterval(interval);
   }, [isAutoPlaying, currentIndex]);
 
-  // =====================
-  // 🔹 Fade transition
-  // =====================
+ 
   useEffect(() => {
     if (!mainCardRef.current) return;
 
@@ -174,9 +162,7 @@ const Testimonials: FC = () => {
 
   const currentTestimonial: Testimonial = testimonials[currentIndex];
 
-  // =====================
-  // 🔹 Render
-  // =====================
+
   return (
     <section
       ref={sectionRef}
@@ -193,26 +179,15 @@ const Testimonials: FC = () => {
           { bottom: "10%", right: "10%" },
           { top: "40%", left: "40%" },
         ].map((pos, i) => (
-          <img
-            key={i}
-            src={logoImage}
-            alt=""
-            aria-hidden="true"
-            ref={(el) => {
-              logosRef.current[i] = el;
-            }}
-            className="
-              absolute 
-              w-24 sm:w-36 md:w-48 lg:w-60 
-              opacity-20 
-              blur-[1px] 
-              transition-transform 
-              duration-700 
-              ease-in-out 
-              hover:scale-105
-            "
-            style={pos}
-          />
+         <img
+  key={i}
+  src={logoImage}
+  alt=""
+  aria-hidden="true"
+  ref={(el) => { logosRef.current[i] = el; }}
+  className="absolute w-24 sm:w-36 md:w-48 lg:w-60 opacity-20 blur-[1px]"
+  style={pos}
+/>
         ))}
       </div>
 
@@ -252,8 +227,7 @@ const Testimonials: FC = () => {
           aria-label={`Depoimento de ${currentTestimonial.name}`}
         >
           <Card
-  // 1. Adicionei h-[500px] (ou o valor que preferir) para travar a altura no mobile
-  // 2. Mantive o sm:h-96 para desktop
+
   className="bg-gradient-to-br from-card to-card/50 border-border h-[500px] sm:h-96 shadow-elegant transition-all duration-700 flex flex-col"
   onMouseEnter={() => setIsAutoPlaying(false)}
   onMouseLeave={() => setIsAutoPlaying(true)}
@@ -288,7 +262,6 @@ const Testimonials: FC = () => {
          </span>
       </blockquote>
 
-      {/* Rodapé (Nome, Cargo) */}
       <cite className="flex flex-col not-italic items-center justify-center gap-2 mt-auto sm:mt-0">
         <span className="font-bold text-sm sm:text-md text-amber-100">
           {currentTestimonial.name}
@@ -303,7 +276,7 @@ const Testimonials: FC = () => {
 </Card>
         </div>
 
-        {/* Navigation controls */}
+
         <div className="flex items-center justify-center gap-4 sm:gap-8 mt-6 sm:mt-12">
           <button
             type="button"
@@ -344,7 +317,7 @@ const Testimonials: FC = () => {
           </button>
         </div>
 
-        {/* Small cards */}
+      
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mt-8 sm:mt-16 pb-10">
           {testimonials
             .filter((_, i) => i !== currentIndex)
