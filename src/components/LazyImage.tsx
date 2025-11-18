@@ -20,33 +20,41 @@ export const LazyImage = ({ src, srcAvif, alt, className }: LazyImageProps) => {
       )}
 
       <picture>
-        {/* AVIF responsivo */}
+        {/* AVIF com tamanhos otimizados */}
         {srcAvif && (
           <source
             type="image/avif"
             srcSet={`
               ${srcAvif}?w=400 400w,
-              ${srcAvif}?w=700 700w,
-              ${srcAvif}?w=900 900w
+              ${srcAvif}?w=800 800w,
+              ${srcAvif}?w=1200 1200w
             `}
-            sizes="(max-width: 640px) 400px, (max-width: 1024px) 700px, 900px"
+            sizes="
+              (max-width: 640px) 400px,
+              (max-width: 1024px) 800px,
+              1200px
+            "
           />
         )}
 
-     
+
         <source
           type="image/jpeg"
           srcSet={`
             ${src}?w=400 400w,
-            ${src}?w=700 700w,
-            ${src}?w=900 900w
+            ${src}?w=800 800w,
+            ${src}?w=1200 1200w
           `}
-          sizes="(max-width: 640px) 400px, (max-width: 1024px) 700px, 900px"
+          sizes="
+            (max-width: 640px) 400px,
+            (max-width: 1024px) 800px,
+            1200px
+          "
         />
 
-       
+  
         <img
-          src={`${src}?w=900`}
+          src={src}
           alt={alt}
           loading="lazy"
           decoding="async"
