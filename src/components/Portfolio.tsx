@@ -1,10 +1,27 @@
-import { useState, useRef, useLayoutEffect, memo } from "react";
-import { Card, CardContent } from "../components/ui/Card";
+import { useState, useRef, useLayoutEffect, memo, type FC } from "react";
+import { Card, CardContent } from "./ui/Card";
 import { ExternalLink, X } from "lucide-react";
 import gsap from "gsap";
 import logoImage from "@/assets/img/logoverde.png";
 
-const portfolioItems = [
+
+interface PortfolioItemType {
+  id: number;
+  title: string;
+  category: string;
+  description: string;
+  video: string;
+  featured: boolean;
+}
+
+interface PortfolioItemProps {
+  item: PortfolioItemType;
+  hoveredItem: number | null;
+  setHoveredItem: (id: number | null) => void;
+  setSelectedItem: (item: PortfolioItemType | null) => void;
+}
+
+const portfolioItems: PortfolioItemType[]  = [
   {
     id: 1,
     title: "Aniversário de 15 Anos",
@@ -70,12 +87,89 @@ const portfolioItems = [
   },
 ];
 
+
+const PortfolioItem: FC<PortfolioItemProps> = memo(
+  ({ item, hoveredItem, setHoveredItem, setSelectedItem }) => {
+    const videoRef = useRef<HTMLVideoElement | null>(null);
+
+    useLayoutEffect(() => {
+      if (!videoRef.current) return;
+
+      if (hoveredItem === item.id) {
+        videoRef.current.play().catch((error) => {
+          console.log("A reprodução automática falhou:", error);
+        });
+      } else {
+        videoRef.current.pause();
+        videoRef.current.currentTime = 2;
+      }
+    }, [hoveredItem, item.id]);
+
+    return (
+      <Card
+        key={item.id}
+        className={`group cursor-pointer overflow-hidden ${
+          item.featured ? "sm:col-span-2" : ""
+        }`}
+        role="button"
+        tabIndex={0}
+        aria-label={`Ver detalhes do evento ${item.title}`}
+        onKeyDown={(e) => e.key === "Enter" && setSelectedItem(item)}
+        onMouseEnter={() => setHoveredItem(item.id)}
+        onMouseLeave={() => setHoveredItem(null)}
+        onClick={() => setSelectedItem(item)}
+      >
+        <div className="relative overflow-hidden">
+          <div className="relative w-full h-80 sm:h-[450px] overflow-hidden">
+            <video
+              src={item.video}
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              aria-label={`Prévia do evento ${item.title}`}
+              className={`absolute inset-0 w-full h-full object-cover transition-transform duration-500 ${
+                hoveredItem === item.id ? "scale-105" : "scale-100"
+              }`}
+              ref={videoRef}
+            />
+            <div
+              className={`absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent transition-opacity duration-300 ${
+                hoveredItem === item.id ? "opacity-20" : "opacity-80"
+              }`}
+            />
+          </div>
+
+          <CardContent className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 z-10">
+            <h3 className="text-sm sm:text-md font-bold uppercase">{item.title}</h3>
+            <p className="text-xs sm:text-xs text-gray-300 leading-relaxed font-light line-clamp-2">
+              {item.description}
+            </p>
+            <div
+              className={`pt-2 sm:pt-4 transition-all duration-300 ${
+                hoveredItem === item.id
+                  ? "translate-y-0 opacity-100"
+                  : "translate-y-2 sm:translate-y-4 opacity-0"
+              }`}
+            >
+              <button
+                className="flex items-center gap-2 text-gold font-medium text-xs sm:text-sm transition-colors"
+                aria-label={`Abrir detalhes do evento ${item.title}`}
+              >
+                Ver Detalhes <ExternalLink className="h-3 w-3 sm:h-4 sm:w-4" />
+              </button>
+            </div>
+          </CardContent>
+        </div>
+      </Card>
+    );
+  }
+);
+
+
 const Portfolio = () => {
   const [hoveredItem, setHoveredItem] = useState<number | null>(null);
-  const [selectedItem, setSelectedItem] = useState<
-    (typeof portfolioItems)[0] | null
-  >(null);
-
+  const [selectedItem, setSelectedItem] = useState<typeof portfolioItems[0] | null>(null);
   const logosRef = useRef<(HTMLImageElement | null)[]>([]);
 
   useLayoutEffect(() => {
@@ -127,18 +221,15 @@ const Portfolio = () => {
       <div className="container max-w-7xl mx-auto relative z-10">
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-2xl sm:text-4xl font-black mb-2 oswald">
-            EVENTOS REALIZADOS
-          </h2>
+          <h2 className="text-2xl sm:text-4xl font-black mb-2 oswald">EVENTOS REALIZADOS</h2>
           <p className="text-xs text-white/70 max-w-2xl mx-auto mb-2 font-extralight uppercase">
-            Cada projeto é uma obra de arte. Confira alguns dos nossos trabalhos
-            mais marcantes.
+            Cada projeto é uma obra de arte. Confira alguns dos nossos trabalhos mais marcantes.
           </p>
           <div className="flex gap-1 max-w-36 mx-auto">
             {["bg-red-500", "bg-green-500", "bg-blue-500"].map((color, i) => (
               <div
                 key={i}
-                className={`w-16 sm:w-42 h-0.5 ${color} mx-auto rounded-full `}
+                className={`w-16 sm:w-42 h-0.5 ${color} mx-auto rounded-full`}
               />
             ))}
           </div>
@@ -147,81 +238,13 @@ const Portfolio = () => {
         {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {portfolioItems.map((item) => (
-            <Card
+            <PortfolioItem
               key={item.id}
-              className={`group cursor-pointer overflow-hidden ${
-                item.featured ? "sm:col-span-2" : ""
-              }`}
-              role="button"
-              tabIndex={0}
-              aria-label={`Ver detalhes do evento ${item.title}`}
-              onKeyDown={(e) => e.key === "Enter" && setSelectedItem(item)}
-              onMouseEnter={() => setHoveredItem(item.id)}
-              onMouseLeave={() => setHoveredItem(null)}
-              onClick={() => setSelectedItem(item)}
-            >
-              <div className="relative overflow-hidden">
-                <div className="relative w-full h-80 sm:h-[450px] overflow-hidden">
-                  <video
-                    src={item.video}
-                    muted
-                    loop
-                    playsInline
-                    preload="auto"
-                    aria-label={`Prévia do evento ${item.title}`}
-                    className={`absolute inset-0 w-full h-full object-cover transition-transform duration-500 ${
-                      hoveredItem === item.id ? "scale-105" : "scale-100"
-                    }`}
-                    ref={(el) => {
-                      if (!el) return;
-
-                      el.onloadeddata = () => {
-                        if (hoveredItem !== item.id) {
-                          el.currentTime = 2;
-                          el.pause();
-                        }
-                      };
-
-                      if (hoveredItem === item.id) {
-                        el.currentTime = 0;
-                        el.play();
-                      } else {
-                        el.pause();
-                      }
-                    }}
-                  />
-                  <div
-                    className={`absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent transition-opacity duration-300 ${
-                      hoveredItem === item.id ? "opacity-20" : "opacity-80"
-                    }`}
-                  />
-                </div>
-
-                <CardContent className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 z-10">
-                  <h3 className="text-sm sm:text-md font-bold uppercase">
-                    {item.title}
-                  </h3>
-                  <p className="text-xs sm:text-xs text-gray-300 leading-relaxed font-light line-clamp-2">
-                    {item.description}
-                  </p>
-                  <div
-                    className={`pt-2 sm:pt-4 transition-all duration-300 ${
-                      hoveredItem === item.id
-                        ? "translate-y-0 opacity-100"
-                        : "translate-y-2 sm:translate-y-4 opacity-0"
-                    }`}
-                  >
-                    <button
-                      className="flex items-center gap-2 text-gold font-medium text-xs sm:text-sm transition-colors"
-                      aria-label={`Abrir detalhes do evento ${item.title}`}
-                    >
-                      Ver Detalhes{" "}
-                      <ExternalLink className="h-3 w-3 sm:h-4 sm:w-4" />
-                    </button>
-                  </div>
-                </CardContent>
-              </div>
-            </Card>
+              item={item}
+              hoveredItem={hoveredItem}
+              setHoveredItem={setHoveredItem}
+              setSelectedItem={setSelectedItem}
+            />
           ))}
         </div>
 
@@ -275,10 +298,10 @@ const Portfolio = () => {
         )}
       </div>
 
+      {/* Call to Action */}
       <div className="text-center mt-12 sm:mt-16 px-2 sm:px-0 text-zinc-300">
         <p className="text-xs sm:text-lg font-bold mb-4 sm:mb-6 uppercase">
-          <span className="font-light">Quer ver seu evento aqui? </span> Vamos
-          criar algo incrível juntos!
+          <span className="font-light">Quer ver seu evento aqui? </span> Vamos criar algo incrível juntos!
         </p>
 
         <a
@@ -296,24 +319,18 @@ const Portfolio = () => {
             group
           "
         >
-          <span className="relative z-5 text-xs sm:text-base">
-            Solicitar meu orçamento
-          </span>
-          <span
-            className="
-              absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent
-              translate-x-[-200%]
-              group-hover:translate-x-[200%]
-              transition-transform duration-[1200ms] ease-in-out
-            "
-          />
-          <span
-            className="
-              absolute inset-0 rounded-2xl border-2 border-transparent
-              group-hover:border-white/40
-              transition-all duration-500 ease-in-out
-            "
-          />
+          <span className="relative z-5 text-xs sm:text-base">Solicitar meu orçamento</span>
+          <span className="
+            absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent
+            translate-x-[-200%]
+            group-hover:translate-x-[200%]
+            transition-transform duration-[1200ms] ease-in-out
+          " />
+          <span className="
+            absolute inset-0 rounded-2xl border-2 border-transparent
+            group-hover:border-white/40
+            transition-all duration-500 ease-in-out
+          " />
         </a>
       </div>
     </section>

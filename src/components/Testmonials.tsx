@@ -281,11 +281,7 @@ const Testimonials: FC = () => {
         </span>
       </div>
 
-      {/* BLOCO DE TEXTO FIXO 
-          - h-[220px]: Define a altura fixa da área de texto.
-          - my-auto: Centraliza o bloco se sobrar espaço no card.
-          - O conteúdo interno usa a lógica anterior para scrolar se for grande.
-      */}
+      
       <blockquote className="flex flex-col justify-start items-center text-center mt-2 text-sm leading-relaxed p-2 mb-4 h-[220px] sm:h-[110px] overflow-y-auto scrollbar-none shrink-0">
          <span className="my-auto block">
             “{currentTestimonial.content}”
