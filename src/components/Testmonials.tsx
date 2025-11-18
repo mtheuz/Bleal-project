@@ -252,42 +252,59 @@ const Testimonials: FC = () => {
           aria-label={`Depoimento de ${currentTestimonial.name}`}
         >
           <Card
-            className="bg-gradient-to-br from-card to-card/50 border-border sm:max-h-96 shadow-elegant transition-all duration-700"
-            onMouseEnter={() => setIsAutoPlaying(false)}
-            onMouseLeave={() => setIsAutoPlaying(true)}
-          >
-            <CardContent className="flex justify-center items-center p-6 sm:p-6 backdrop-blur-4xl">
-              <div className="text-center">
-                <Quote className="h-10 sm:h-8 w-10 sm:w-8 mx-auto opacity-60 mb-4 sm:mb-8" />
+  // 1. Adicionei h-[500px] (ou o valor que preferir) para travar a altura no mobile
+  // 2. Mantive o sm:h-96 para desktop
+  className="bg-gradient-to-br from-card to-card/50 border-border h-[500px] sm:h-96 shadow-elegant transition-all duration-700 flex flex-col"
+  onMouseEnter={() => setIsAutoPlaying(false)}
+  onMouseLeave={() => setIsAutoPlaying(true)}
+>
+  {/* 3. Adicionei h-full para o conteúdo ocupar todo o card */}
+  <CardContent className="flex justify-center items-center p-6 sm:p-6 backdrop-blur-4xl h-full w-full">
+    <div className="text-center w-full flex flex-col h-full justify-center"> 
+      
+      {/* Cabeçalho (Ícone, Estrelas, Empresa) */}
+      <div>
+        <Quote className="h-10 sm:h-8 w-10 sm:w-8 mx-auto opacity-60 mb-4 sm:mb-6" />
 
-                <div className="flex justify-center gap-1 mb-4 sm:mb-6">
-                  {[...Array(currentTestimonial.rating)].map((_, i) => (
-                    <Star
-                      key={i}
-                      color="yellow"
-                      className="h-4 sm:h-6 w-4 sm:w-6 fill-current"
-                      aria-hidden="true"
-                    />
-                  ))}
-                </div>
-                <span className="font-bold text-[12px] mb-4 uppercase sm:text-md text-gray-400">
-                  {currentTestimonial.company}
-                </span>
-                <blockquote className="flex mt-2  sm:justify-center sm:items-center justify-start items-start text-sm leading-relaxed p-2 mb-4 h-[220px] sm:h-[110px] overflow-y-auto scrollbar-none">
-                  “{currentTestimonial.content}”
-                </blockquote>
+        <div className="flex justify-center gap-1 mb-4 sm:mb-4">
+          {[...Array(currentTestimonial.rating)].map((_, i) => (
+            <Star
+              key={i}
+              color="yellow"
+              className="h-4 sm:h-6 w-4 sm:w-6 fill-current"
+              aria-hidden="true"
+            />
+          ))}
+        </div>
+        <span className="font-bold text-[12px] mb-2 block uppercase sm:text-md text-gray-400">
+          {currentTestimonial.company}
+        </span>
+      </div>
 
-                <cite className="flex flex-col not-italic items-center justify-center gap-2">
-                  <span className="font-bold text-sm sm:text-md text-amber-100">
-                    {currentTestimonial.name}
-                  </span>
-                  <span className="text-xs sm:text-sm">
-                    {currentTestimonial.role}
-                  </span>
-                </cite>
-              </div>
-            </CardContent>
-          </Card>
+      {/* BLOCO DE TEXTO FIXO 
+          - h-[220px]: Define a altura fixa da área de texto.
+          - my-auto: Centraliza o bloco se sobrar espaço no card.
+          - O conteúdo interno usa a lógica anterior para scrolar se for grande.
+      */}
+      <blockquote className="flex flex-col justify-start items-center text-center mt-2 text-sm leading-relaxed p-2 mb-4 h-[220px] sm:h-[110px] overflow-y-auto scrollbar-none shrink-0">
+         <span className="my-auto block">
+            “{currentTestimonial.content}”
+         </span>
+      </blockquote>
+
+      {/* Rodapé (Nome, Cargo) */}
+      <cite className="flex flex-col not-italic items-center justify-center gap-2 mt-auto sm:mt-0">
+        <span className="font-bold text-sm sm:text-md text-amber-100">
+          {currentTestimonial.name}
+        </span>
+        <span className="text-xs sm:text-sm">
+          {currentTestimonial.role}
+        </span>
+      </cite>
+
+    </div>
+  </CardContent>
+</Card>
         </div>
 
         {/* Navigation controls */}
