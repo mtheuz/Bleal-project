@@ -272,6 +272,7 @@ const Portfolio = () => {
 
               <video
                 src={selectedItem.video}
+                preload="metadata"
                 autoPlay
                 controls
                 className="w-full h-[400px] object-cover"

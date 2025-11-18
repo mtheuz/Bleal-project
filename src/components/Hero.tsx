@@ -144,6 +144,7 @@ const Hero = () => {
       <a
         href="#sobre"
         ref={arrowRef}
+        aria-label="Ir para a seção Sobre"
         className="hidden sm:flex absolute bottom-24 md:bottom-8 left-1/2 -translate-x-1/2"
       >
         <div className="border-2 border-red rounded-full flex justify-center animate-bounce">
