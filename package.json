@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && critical --inline --minify --base dist --src index.html --target index.html",
+    "build": "vite build && npx critical --inline --base dist --src dist/index.html --target dist/index.html",
     "lint": "eslint .",
     "preview": "vite preview"
   },
