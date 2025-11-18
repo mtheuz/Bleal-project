@@ -498,7 +498,7 @@ onResize() {
     fov: isMobile ? 60 : 45, // FOV mais aberto em telas menores
   });
 
-  // Ajuste de posição da câmera (aproxima mais em telas pequenas)
+ 
   this.camera.position.z = isMobile ? 12 : 20;
 
   // Recalcula o viewport
@@ -507,14 +507,13 @@ onResize() {
   const width = height * aspect;
   this.viewport = { width, height };
 
-  // Atualiza mídias
+  
   if (this.medias) {
     this.medias.forEach((media) =>
       media.onResize({ screen: this.screen, viewport: this.viewport })
     );
   }
 
-  // Ajusta sensibilidade e suavidade do scroll
   if (isMobile) {
     this.scrollSpeed = 1.3;
     this.scroll.ease = 0.07;
@@ -527,7 +526,7 @@ onResize() {
 
 
 update() {
-  // Interpolação suave entre o valor atual e o alvo (scroll)
+
   this.scroll.current = lerp(
     this.scroll.current,
     this.scroll.target,

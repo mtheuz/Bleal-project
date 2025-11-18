@@ -127,7 +127,7 @@ const Hero = () => {
 
             <button
               ref={btn2Ref}
-              className="cursor-pointer uppercase text-xs md:text-md px-8 py-4 border-red text-red hover:bg-red hover:text-white border-2 rounded-2xl hover:border-white transition-colors duration-300"
+              className="cursor-pointer uppercase text-xs md:text-md px-8 py-4  text-red hover:bg-red hover:text-white border-2 border-transparent rounded-2xl hover:border-white transition-colors duration-300"
               onClick={() =>
                 document
                   .getElementById("portfolio")

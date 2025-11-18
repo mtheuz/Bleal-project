@@ -26,12 +26,12 @@ interface Testimonial {
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    name: "Aldinei Silva",
-    role: "Produtor de Vídeo",
-    company: "",
+    name: "Thiago Oliver",
+    role: "Diretor de Marketing e Comercial do Grupo nobre, Uniao Medica e Rede Vida Nobre de Saude",
+    company: "Lançamento do centro universitário UNEF",
     rating: 5,
     content:
-      "A B Leal superou todas as expectativas! A estrutura montada foi impecável e a iluminação criou uma atmosfera única. Profissionalismo total da equipe.",
+      "Esse evento foi incrível, né, e trabalhar com o Bruno Leal é sempre uma honra, porque, primeiro, tudo sai impecável, a gente não se preocupa com nada e traz inovação, traz tecnologia. Nesse evento, o Bruno colocou um monte de coisas novas, não tem só esse telão, tem muitos telões, fora a estrutura, a segurança, uma equipe que nos acolhe. Então, assim, eu só tenho a agradecer a essa empresa, que eu amo, por essa parceria, que não é de agora, né, é uma parceria que vai continuar por muito tempo.",
     image:
       "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face",
   },
@@ -216,13 +216,13 @@ const Testimonials: FC = () => {
         ))}
       </div>
 
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto pt-10">
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16">
           <h2
             id="testimonials-title"
             ref={titleRef}
-            className="text-2xl sm:text-4xl md:text-4xl font-black mb-2 oswald uppercase"
+            className="text-xl sm:text-4xl md:text-4xl font-black mb-2 oswald uppercase"
           >
             Clientes que já viveram essa experiência
           </h2>
@@ -252,7 +252,7 @@ const Testimonials: FC = () => {
           aria-label={`Depoimento de ${currentTestimonial.name}`}
         >
           <Card
-            className="bg-gradient-to-br from-card to-card/50 border-border shadow-elegant transition-all duration-700"
+            className="bg-gradient-to-br from-card to-card/50 border-border sm:max-h-96 shadow-elegant transition-all duration-700"
             onMouseEnter={() => setIsAutoPlaying(false)}
             onMouseLeave={() => setIsAutoPlaying(true)}
           >
@@ -270,8 +270,10 @@ const Testimonials: FC = () => {
                     />
                   ))}
                 </div>
-
-                <blockquote className="flex justify-center items-center text-sm leading-relaxed mb-4 h-[320px] sm:h-[100px] overflow-y-auto">
+                <span className="font-bold text-[12px] mb-4 uppercase sm:text-md text-gray-400">
+                  {currentTestimonial.company}
+                </span>
+                <blockquote className="flex mt-2  sm:justify-center sm:items-center justify-start items-start text-sm leading-relaxed p-2 mb-4 h-[220px] sm:h-[110px] overflow-y-auto scrollbar-none">
                   “{currentTestimonial.content}”
                 </blockquote>
 
@@ -307,7 +309,6 @@ const Testimonials: FC = () => {
             {testimonials.map((_, i) => (
               <div
                 key={i}
-
                 aria-selected={i === currentIndex}
                 aria-label={`Ir para depoimento ${i + 1}`}
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
@@ -331,23 +332,27 @@ const Testimonials: FC = () => {
         </div>
 
         {/* Small cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mt-8 sm:mt-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mt-8 sm:mt-16 pb-10">
           {testimonials
             .filter((_, i) => i !== currentIndex)
             .slice(0, 2)
             .map((testimonial) => (
               <Card
                 key={testimonial.id}
-                className="border-2 border-white/50 hover:border-yellow-200 transition-all duration-300 cursor-pointer backdrop-blur-md"
+                className="border-2 border-white/50 hover:border-yellow-200 transition-all duration-300 cursor-pointer backdrop-blur-md h-46 sm:mb-10"
                 role="button"
                 tabIndex={0}
                 aria-label={`Ver depoimento completo de ${testimonial.name}`}
                 onClick={() =>
-                  goToIndex(testimonials.findIndex((t) => t.id === testimonial.id))
+                  goToIndex(
+                    testimonials.findIndex((t) => t.id === testimonial.id)
+                  )
                 }
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ") {
-                    goToIndex(testimonials.findIndex((t) => t.id === testimonial.id));
+                    goToIndex(
+                      testimonials.findIndex((t) => t.id === testimonial.id)
+                    );
                   }
                 }}
               >
@@ -363,7 +368,7 @@ const Testimonials: FC = () => {
                     ))}
                   </div>
 
-                  <p className="text-xs mb-2 sm:mb-4 line-clamp-3 max-h-20">
+                  <p className="text-xs mb-2 sm:mb-4 line-clamp-3 h-16 overflow-y-auto scrollbar-none">
                     “{testimonial.content}”
                   </p>
 
@@ -372,7 +377,7 @@ const Testimonials: FC = () => {
                       <div className="font-medium text-xs sm:text-sm">
                         {testimonial.name}
                       </div>
-                      <div className="text-xs">{testimonial.company}</div>
+                      <div className="text-xs text-gray-400">{testimonial.role}</div>
                     </div>
                   </div>
                 </CardContent>

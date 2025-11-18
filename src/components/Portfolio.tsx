@@ -100,7 +100,7 @@ const Portfolio = () => {
   return (
     <section
       id="portfolio"
-      className="relative section-padding bg-black px-4 sm:px-6"
+      className="relative section-padding bg-black px-4 sm:px-6 pb-4 sm:pb-10"
     >
       {/* Logos de fundo */}
       <div className="inset-0 pointer-events-none absolute">
@@ -228,7 +228,7 @@ const Portfolio = () => {
         {/* Modal */}
         {selectedItem && (
           <div
-            className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
+            className="fixed inset-0 mt-8 bg-black/80 flex items-center justify-center z-50 p-4"
             role="dialog"
             aria-modal="true"
             aria-labelledby="modal-title"
@@ -264,7 +264,7 @@ const Portfolio = () => {
                 </h3>
 
                 <p
-                  className="text-sm text-white/70 mb-4 font-light"
+                  className="text-sm max-h-24 overflow-y-auto text-white/70 mb-4 font-light"
                   id="modal-description"
                 >
                   {selectedItem.description}
