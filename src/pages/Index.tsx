@@ -1,18 +1,22 @@
-import { Helmet } from "react-helmet"; 
-import Hero from "../components/Hero";
+import { Helmet } from "react-helmet";
 import Header from "../components/Header";
-import About from "../components/About";
-import Footer from "../components/Footer";
-import Testimonials from "../components/Testmonials";
-import Portfolio from "../components/Portfolio";
-import Differentials from "../components/Differentials";
-import Services from "../components/Services";
+import Hero from "../components/Hero";
+import { lazy, Suspense } from "react";
+
+const About = lazy(() => import("../components/About"));
+const Services = lazy(() => import("../components/Services"));
+const Differentials = lazy(() => import("../components/Differentials"));
+const Portfolio = lazy(() => import("../components/Portfolio"));
+const Testimonials = lazy(() => import("../components/Testmonials"));
+const Footer = lazy(() => import("../components/Footer"));
 
 const Index = () => {
-  const canonicalUrl = typeof window !== "undefined" ? window.location.href : "https://blealproducoes.com.br";
+  const canonicalUrl =
+    typeof window !== "undefined"
+      ? window.location.href
+      : "https://blealproducoes.com.br";
 
-  // Dados estruturados (Google Local SEO)
-  const jsonLd = {
+ const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "BLeal Produções",
@@ -81,12 +85,15 @@ const Index = () => {
       <main className="text-white overflow-x-hidden">
         <Header />
         <Hero />
-        <About />
-        <Services />
-        <Differentials />
-        <Portfolio />
-        <Testimonials />
-        <Footer />
+
+        <Suspense fallback={<div />}>
+          <About />
+          <Services />
+          <Differentials />
+          <Portfolio />
+          <Testimonials />
+          <Footer />
+        </Suspense>
       </main>
     </>
   );
