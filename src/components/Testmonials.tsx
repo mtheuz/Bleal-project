@@ -21,7 +21,7 @@ const testimonials: Testimonial[] = [
   {
     id: 1,
     name: "Thiago Oliver",
-    role: "Diretor de Marketing e Comercial do Grupo nobre, Uniao Medica e Rede Vida Nobre de Saude",
+    role: "Diretor de Marketing e Comercial do Grupo nobre, União Medica e Rede Vida Nobre de Saude",
     company: "Lançamento do centro universitário UNEF",
     rating: 5,
     content:

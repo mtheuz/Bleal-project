@@ -213,7 +213,7 @@ const About = () => {
               </h3>
 
               <p className="text-sm sm:text-[15px] leading-relaxed text-white/70">
-                A <span className="text-white">BLeal Produções</span> é
+                A <span className="text-white">B Leal Produções</span> é
                 referência em soluções técnicas para eventos. Com sede em Feira
                 de Santana e atuação em todo o estado, entregamos estrutura,
                 iluminação e impacto visual com precisão, criatividade e

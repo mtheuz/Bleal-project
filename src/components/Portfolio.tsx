@@ -3,7 +3,10 @@ import { Card, CardContent } from "./ui/Card";
 import { ExternalLink, X } from "lucide-react";
 import gsap from "gsap";
 import logoImage from "@/assets/img/logoverde.png";
-
+import pablo from "../assets/BODEGA-DO-PABLO .mp4";
+import boulervard from "../assets/EVENTO-COORPORATIVO-BOULEVAR-SHOPPING-.mp4";
+import aniversario from "../assets/15-anos.mp4";
+import vaquejadaa from "../assets/VAQUEJADA-DE-SERRINHA- (1).mp4";
 
 interface PortfolioItemType {
   id: number;
@@ -28,7 +31,7 @@ const portfolioItems: PortfolioItemType[]  = [
     category: "Shows",
     description:
       "Produção completa para festival com 50.000 pessoas, incluindo 4 palcos simultâneos com iluminação LED sincronizada.",
-    video: "https://res.cloudinary.com/ds5exijte/video/upload/v1761610053/15_anos_r98pfc.mov",
+    video: aniversario,
     featured: false,
   },
   {
@@ -37,7 +40,7 @@ const portfolioItems: PortfolioItemType[]  = [
     category: "Corporativo",
     description:
       "Uma noite inesquecível pede uma produção à altura. Na bodega do Pablo, a B Leal entregou estrutura grandiosa, iluminação cênica e telões impactantes, criando um espetáculo que uniu tecnologia e emoção. Porque não se trata apenas de montar um palco, e sim de criar experiências que marcam para sempre. 💡🎶",
-    video: "https://res.cloudinary.com/ds5exijte/video/upload/v1763402610/BODEGA-DO-PABLO_lswg6d.mp4",
+    video: pablo,
     featured: false,
   },
   {
@@ -46,7 +49,7 @@ const portfolioItems: PortfolioItemType[]  = [
     category: "Teatro",
     description:
       "Mais uma edição do Boulevard Fashion com a assinatura da B Leal Produções! iluminação de ponta, estrutura completa, sonorização, geradores e painéis de LED que transformaram o evento em um verdadeiro espetáculo.",
-    video: "https://res.cloudinary.com/ds5exijte/video/upload/v1763402588/EVENTO-COORPORATIVO-BOULEVAR-SHOPPING-_cxjizt.mp4",
+    video: boulervard,
     featured: false,
   },
   {
@@ -82,7 +85,7 @@ const portfolioItems: PortfolioItemType[]  = [
     category: "Shows",
     description:
       "Vaquejada de Serrinha em grande estilo! A B Leal esteve presente assinando a estrutura e iluminação que deram ainda mais força e brilho a esse evento que já é tradição.💡 Porque cada espetáculo merece a grandeza da luz certa e a segurança de uma estrutura impecável.",
-    video: "https://res.cloudinary.com/ds5exijte/video/upload/v1763402613/VAQUEJADA-DE-SERRINHA-_augsxn.mp4",
+    video: vaquejadaa,
     featured: false,
   },
 ];

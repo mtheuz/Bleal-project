@@ -19,7 +19,7 @@ const Index = () => {
  const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "BLeal Produções",
+    name: "B Leal Produções",
     url: "https://blealproducoes.com.br",
     logo: "https://blealproducoes.com.br/logo.png",
     description:
@@ -44,8 +44,7 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        {/* ----------- SEO BÁSICO ----------- */}
-        <title>BLeal Produções | Soluções Técnicas para Eventos em Feira de Santana</title>
+        <title>B Leal Produções </title>
         <meta
           name="description"
           content="Referência em soluções técnicas para eventos na Bahia. Estrutura, iluminação, som e impacto visual com tecnologia, criatividade e responsabilidade."
