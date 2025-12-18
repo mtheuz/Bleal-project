@@ -7,6 +7,9 @@ import pablo from "../assets/BODEGA-DO-PABLO .mp4";
 import boulervard from "../assets/EVENTO-COORPORATIVO-BOULEVAR-SHOPPING-.mp4";
 import aniversario from "../assets/15-anos.mp4";
 import vaquejadaa from "../assets/VAQUEJADA-DE-SERRINHA- (1).mp4";
+import expofeira from "../assets/Expofeira.mp4";
+import saojoao from "../assets/saojoao.mp4";
+import marcaunef from "../assets/LancamentoMarcaUnef.mp4";
 
 interface PortfolioItemType {
   id: number;
@@ -58,7 +61,7 @@ const portfolioItems: PortfolioItemType[]  = [
     category: "Social",
     description:
       "Um evento grandioso pede uma produção à altura! 💡 A B Leal Produções foi responsável por toda a estrutura e iluminação na celebração dos 24 anos da UNEF e da transição para Centro Universitário.",
-    video: "https://res.cloudinary.com/ds5exijte/video/upload/v1761609978/EVENTO_COORPORATIVO_-_LANC%CC%A7AMENTO_MARCA_UNEF_pwbrpk.mp4",
+    video: marcaunef,
     featured: false,
   },
   {
@@ -67,7 +70,7 @@ const portfolioItems: PortfolioItemType[]  = [
     category: "Corporativo",
     description:
       "Iluminação que transforma espaços! Na Expofeira, a B Leal assinou a iluminação de alguns stands, dando destaque especial para cada detalhe e valorizando a experiência de quem visitou o evento. ✨❤️",
-    video: "https://res.cloudinary.com/ds5exijte/video/upload/v1761612824/EXPOFEIRA_1_au26gk.mp4",
+    video: expofeira,
     featured: true,
   },
   {
@@ -76,7 +79,7 @@ const portfolioItems: PortfolioItemType[]  = [
     category: "Shows",
     description:
       "de um São João inesquecível! Estruturas que marcaram as principais cidades e levaram um brilho jamais visto antes. 💡🎶 A B Leal esteve presente transformando cada espaço em um verdadeiro espetáculo, unindo tradição e inovação em noites que vão ficar para sempre na memória. Porque quando o assunto é São João, nossa missão é clara: iluminar sonhos e criar experiências únicas.",
-    video: "https://res.cloudinary.com/ds5exijte/video/upload/v1761613184/BLEAL_PRODU%C3%87%C3%95ES_4K_RENDER_FINAL_1_tbmpwc.mp4",
+    video: saojoao,
     featured: true,
   },
   {
